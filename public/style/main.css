@@ -1,0 +1,145 @@
+/* body {
+    background-image: linear-gradient(180deg, #535BBA, #478EF2);
+} */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+        overflow: hidden;
+        width: 13em;
+        -webkit-appearance: none;
+        background-color: #efefef;
+    }
+    input[type='range']::-webkit-slider-runnable-track {
+        height: 10px;
+        -webkit-appearance: none;
+        color: #13bba4;
+        margin-top: -1px;
+    }
+    input[type='range']::-webkit-slider-thumb {
+        width: 10px;
+        -webkit-appearance: none;
+        height: 10px;
+        cursor: ew-resize;
+        background: #434343;
+        box-shadow: -200px 0 0 200px #43e5f7;
+    }
+}
+
+input[type="range"]::-moz-range-progress {
+    background-color: #43e5f7;
+}
+
+input[type="range"]::-moz-range-track {
+    background-color: #efefef;
+}
+
+.alert-warning {
+    background-color: #E7403B;
+    font-weight: bold;
+    display: inline-flex;
+    border-radius: 17px;
+    color: white;
+}
+
+input[type=range] {
+    /* fix for FF unable to apply focus style bug  */
+    border: 1px solid white;
+    /*required for proper track sizing in FF*/
+    width: 13em;
+}
+
+input[type=range]::-moz-range-track {
+    width: 13em;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: black;
+}
+
+
+/*hide the outline behind the border*/
+
+input[type=range]:-moz-focusring {
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+input[type=range]:focus::-moz-range-track {
+    background: #ccc;
+}
+ 
+/* #canvas-signature{
+    width: 100%; 
+    height: auto;
+    border: 1px solid black;
+} */
+   
+/* #signatureparent {
+    color:darkblue;
+    background-color:darkgrey; 
+    padding:20px;
+}
+ 
+#signature {
+    border: 2px dotted black;
+    height: auto;
+    background-color:lightgrey;
+}
+ 
+html.touch #content {
+    float:left;
+    width:92%;
+}
+html.touch #scrollgrabber {
+    float:right;
+    width:4%;
+    margin-right:2%;
+    background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAFCAAAAACh79lDAAAAAXNSR0IArs4c6QAAABJJREFUCB1jmMmQxjCT4T/DfwAPLgOXlrt3IwAAAABJRU5ErkJggg==)
+}
+html.borderradius #scrollgrabber {
+    border-radius: 1em;
+} */
+
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:200px;
+  background-color: white;
+}
+
+.sweet_loader {
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+	animation-duration: 0.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-name: ro;
+	transform-origin: 50% 50%;
+	transform: rotate(0) translate(0,0);
+}
+@keyframes ro {
+	100% {
+		transform: rotate(-360deg) translate(0,0);
+	}
+}

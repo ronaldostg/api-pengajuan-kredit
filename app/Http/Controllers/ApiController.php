@@ -253,7 +253,7 @@ class ApiController extends Controller
 
 
         $from_label = "No-Reply";
-        $subject = "OTP Pengajuan Kredit Bank Sumut";
+        $subject = "Bukti Pengajuan Kredit Bank Sumut";
         $url = '';
 
         $mail->setFrom($from, $from_label);
