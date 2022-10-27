@@ -118,8 +118,8 @@ class ApiController extends Controller
 
             $result =  json_decode($output);
 
-            // return json_encode($result);
-            // exit();
+            return json_encode($result);
+            exit();
 
       
 
@@ -305,8 +305,7 @@ class ApiController extends Controller
 
             $res['rc']='01';
             // $res['data']=$request->all();
-            $res['message'] ='NIK ANDA sudah tersimpan di database. Apakah anda yakin untuk mengganti 
-            nomor telepon ?';
+            $res['message'] ='NIK ANDA sudah tersimpan di database. Apakah anda yakin untuk lanjutkan pengajuan ?';
             $res['data'] =$cekNIK[0];
 
         }else{
@@ -332,4 +331,42 @@ class ApiController extends Controller
         return $res;
 
     }
+
+    public function loadJenisKredit(Request $request){
+        
+        $idJenis = $request->idJenis;
+
+
+        $data = DB::connection('pgsql2')->select('select * from t_jenis_kredit where type_keperluan = '.$idJenis);
+
+        foreach($data as $dt){
+            echo '<option value="0'.$dt->credit_id.'-'.$dt->persen.'-'.$dt->nama_kredit.'">'.$dt->nama_kredit.'</option>';
+        }
+
+
+    } 
+
+    public function cekPengajuanByNoHP(Request $request){
+        $phoneNbr = str_replace("-", "", $request->input('nohp'));
+
+        // return $phoneNbr;
+        // exit;
+
+
+        $checkLoanReg = DB::select("SELECT * FROM tbl_loanreg where phonenbr = '".$phoneNbr."' and sts_req= '-5' ");
+        
+        $data = [];
+        if(count($checkLoanReg)>0){
+            $data['rc']='01';
+            $data['message']='Anda Masih Memiliki Permohonan Dalam Proses';
+            
+        }else{
+            $data['rc']='00';
+            $data['message']='Berhasil';
+
+        }
+
+        return $data;
+    }
+
 }

@@ -19,24 +19,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'middleware'=>'api',
-    
-],function () {
+    'middleware' => 'api',
+
+], function () {
 
     // Route::post('insert-pengajuan', [SendToAppraisalController::class, 'index']);
-    
+
     // Route::post('/save-document', [SaveDocumentController::class, 'index']);
     Route::post('/save-document', [SendToAppraisalController::class, 'index']);
 
-    Route::post('/fetch-clusterassign',[SendToAppraisalController::class, 'clusterassign']);
-  
-    Route::post('/cek-data-penting',[SendToAppraisalController::class, 'cekDataPenting']);
-    
+    Route::post('/fetch-clusterassign', [SendToAppraisalController::class, 'clusterassign']);
 
-    Route::post('/check-dukcapil',[ApiController::class, 'checkDukcapil']);
-    
-    
-    Route::post('/check-nohp',[ApiController::class, 'checkNohp']);
+    Route::post('/cek-data-penting', [SendToAppraisalController::class, 'cekDataPenting']);
+
+
+    Route::post('/check-dukcapil', [ApiController::class, 'checkDukcapil']);
+
+
+    Route::post('/check-nohp', [ApiController::class, 'checkNohp']);
 
 
 
@@ -51,16 +51,11 @@ Route::group([
 
 
     Route::post('/cek-nik-email', [ApiController::class, 'cekNikEmail']);
-
-
-
-
-
+    
     Route::post('/inquery-nik-notelp', [ApiController::class, 'inqueryNIKnotelp']);
-
-
-
- 
-
+    Route::get('load-produk-kredit', [ApiController::class, 'loadJenisKredit']);
+    
+    Route::post('/cek-nohp-pengajuan', [ApiController::class, 'cekPengajuanByNoHP']);
+    
 
 });

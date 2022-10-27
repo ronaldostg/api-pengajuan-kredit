@@ -56,7 +56,7 @@
         </tr> --}}
         <tr >
             <th>FOTO Tempat Usaha </th>
-            <th><img src="{{$foto_tempat_usaha }}" width="500" height="300"></th>        
+            <th><img src="{{$foto_tempat_usaha }}" style="max-width: 80%;width:500px;"></th>        
         </tr>
         {{-- <tr >
             <th>NIK. </th>

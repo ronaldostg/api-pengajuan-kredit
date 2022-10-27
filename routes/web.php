@@ -6,7 +6,7 @@ use App\Models\ReportModel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\PenggolonganWilayahController;
-
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,7 @@ use App\Http\Controllers\PenggolonganWilayahController;
 // });
 
 Route::get('/',[PengajuanController::class,'create']);
+Route::get('/testdocument',[TestController::class,'index']);
 
 
 Route::get('/printpdf',[DataController::class,'generatePdf']);

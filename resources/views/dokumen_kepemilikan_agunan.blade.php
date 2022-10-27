@@ -58,7 +58,7 @@
             <th>FOTO Kepemilikan Agunan</th>
             <th>
                 {{-- {{$id_req}} --}}
-                <img src="{{$foto_kepemilikan_agunan }}" width="500" height="300">
+                <img src="{{$foto_kepemilikan_agunan }}" style="max-width: 80%;width:500px;">
             </th>        
         </tr>
         {{-- <tr >

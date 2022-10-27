@@ -56,7 +56,7 @@
         </tr> --}}
         <tr >
             <th>FOTO Debitur </th>
-            <th><img src="{{$foto_ktp }}" width="500" height="300"></th>        
+            <th><img src="{{$foto_ktp }}" style="max-width: 80%;width:500px;"></th>        
         </tr>
         {{-- <tr >
             <th>NIK. </th>

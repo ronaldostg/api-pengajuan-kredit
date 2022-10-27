@@ -20,12 +20,13 @@ class OtpController extends Controller
 
         $nohp = str_replace("-", "", $request->input('nohp'));
         $nik = $request->input('nik');
-        // $email = $request->input('email');
+        $email = $request->input('email');
 
         $cekNoTelpDaftar = DB::table('tbl_authregister')->where('nik','=',$nik)->first();
 
 
         $nohpOTP = $cekNoTelpDaftar != null ? $cekNoTelpDaftar->nohp :$nohp;
+        //$emailOTP = $cekNoTelpDaftar != null ? $cekNoTelpDaftar->mailaddr :$email;
         
         if ($nohpOTP == "" || $nohpOTP == null){
             $data['message'] = "Mohon Masukkan No Telepon Anda";
@@ -40,10 +41,10 @@ class OtpController extends Controller
                 $data['contact']['sendwatelp1'] = $this->sendToWA($nohpOTP, $otp);
             }
 
-            // if ($email!= "") {
-            //     $data['contact']['sendwaemail'] = $this->sendToEmail($email, $otp);
+            if ($email!= "") {
+                $data['contact']['sendwaemail'] = $this->sendToEmail($email, $otp);
                 
-            // }
+            }
             $data['message'] = "berhasil dikirim";
             $data['rc'] = "00";
             $data['no_hp'] = $nohpOTP;

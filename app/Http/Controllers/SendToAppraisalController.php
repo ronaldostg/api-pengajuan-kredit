@@ -21,12 +21,8 @@ class SendToAppraisalController extends Controller
         $notelp =str_replace("-", "", $request->input('notelp'));
         $nik = $request->input('nik');
 
-        // // $nik = $request->input('nomor_nik');
         $res = [];
-        // $res['rc'];
-        // $res['status'];
-        // $res = [];
-
+ 
         $checkNoTelp = DB::table('tbl_authregister')->where('phonenbr', '=', $notelp)->get();
         
         if(count($checkNoTelp)>0){
@@ -147,6 +143,7 @@ class SendToAppraisalController extends Controller
 
             $phoneNbr = $cekNoTelpDaftar->phonenbr;
             $data['nomor_telepon1'] = $cekNoTelpDaftar->phonenbr;
+            $data['nik'] = $cekNoTelpDaftar->nik;
         }else{
 
             $checkAuthreg= DB::select("select * from tbl_authregister where phonenbr='".$phoneNbr."'");
@@ -174,8 +171,7 @@ class SendToAppraisalController extends Controller
         // cek apakah data pengajuan sudah diproses atau belum
         // $checkSamePhone = DB::select("SELECT * FROM tbl_loanreg where phonenbr = '".$phoneNbr."' and sts_req= '-5' ");
         $checkLoanReg = DB::select("SELECT * FROM tbl_loanreg where phonenbr = '".$phoneNbr."' and sts_req= '-5' ");
-        // return json_encode($checkLoanReg);
-        // exit();
+      
 
         if(count($checkLoanReg)>0){
 
@@ -264,7 +260,7 @@ class SendToAppraisalController extends Controller
         "foto_ktp"=>$srcSelfieKTP,
         "foto_tempat_usaha"=>$srcTempatUsaha,
         "e_signature"=>$srcTandaTangan,
-        "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate("$request->input('nama_debitur')"."||".$request->input('nomor_nik'))),
+        "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($id_req."||".$request->input('nomor_nik'))),
        ];
 
 

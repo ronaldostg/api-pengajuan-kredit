@@ -290,18 +290,20 @@
                     <form id="form-1" class="row row-cols-1 ms-1 me-5 needs-validation" novalidate>
                         <div class="info-form p-3">
 
-                            
+
                             <h3>Data Diri</h3>
                             <h5>(Mohon isi sesuai KTP)</h5>
                             {{-- {{ $sumber }} --}}
+                            {{-- {{ Request::ip(); }} --}}
                             <div class="row mt-3 overflow-auto">
 
                                 <div class="col-md-4 xs-6 my-2">
-                                    <input type="hidden" id="source_name" value="{{ $sumber }}" />
 
                                     <div class="form-group">
-                                        <label class="sr-only error">Nama <span class="text-danger font-weight-bold ">*</span></label>
+                                        <label class="sr-only" for="nama">Nama <span class="text-danger font-weight-bold ">*</span></label>
                                         <input type="text" name="nama" class="form-control " placeholder="Nama Lengkap" id="nama" maxlength="35" required>
+                                        <div class="invalid-feedback"></div>
+
                                         <small>(Maksimal 35 karakter dan Sesuai KTP)</small>
 
 
@@ -310,11 +312,12 @@
 
 
                                 </div>
+                                <input type="hidden" id="source_name" value="{{ $sumber }}" />
+
                                 <div class="col-md-4 xs-6   my-2">
                                     <div class="form-group">
-                                        <label class="sr-only">NIK <span class="text-danger font-weight-bold ">*</span></label>
-
-                                        <input placeholder="NIK Sesuai KTP" minlength="16" maxlength="16" type="text" name="noNIK" class="form-control" id="nik" required>
+                                        <label class="sr-only" for="noNIK">NIK <span class="text-danger font-weight-bold ">*</span></label>
+                                        <input placeholder="NIK Sesuai KTP" minlength="16" maxlength="16" type="text" name="noNIK" class="form-control " id="nik" required>
                                         <small>(NIK Sesuai KTP)</small>
                                     </div>
                                 </div>
@@ -329,9 +332,9 @@
                                 </div>
                                 <div class="col-md-8 my-2">
                                     <div class="form-group">
-                                        <label class="sr-only">Alamat <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="alamatDebitur" id="alamatDebitur" rows="3" required></textarea>
-                                        <small>Sesuai dengan KTP </small>
+                                        <label class="sr-only">Alamat (Sesuai dengan KTP)<span class="text-danger">*</span></label>
+                                        <textarea class="form-control " name="alamatDebitur" id="alamatDebitur" rows="3" required></textarea>
+
 
                                     </div>
                                 </div>
@@ -341,15 +344,15 @@
                                     <div class="form-group">
                                         <label class="sr-only">No. Handphone<span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" name="notelp1" id="notelp1" class="form-control" placeholder="mis: 08xx-xxxx-xxxx" id="notelp" required>
-                                        <br /><small> (Pastikan nomor telepon aktif)</small>
+                                        <input type="text" name="notelp1" id="notelp1" class="form-control " placeholder="mis: 08xx-xxxx-xxxx" required>
+                                        <small> (Pastikan nomor telepon aktif)</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
 
                                         <label class="sr-only">Jenis Kelamin <span class="text-danger">*</span></label>
-                                        <select class="form-select  " name="jenisKelamin" aria-label="Default select example" id="jenisKelamin" required>
+                                        <select class="form-select " name="jenisKelamin" aria-label="Default select example" id="jenisKelamin" required>
                                             <option value="" selected>----Jenis Kelamin-----</option>
                                             <option value="LAKI-LAKI">Laki-laki
                                             </option>
@@ -365,7 +368,7 @@
                                 <div class="col-md-4 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Tanggal Lahir <span class="text-danger">*</span></label>
-                                        <input type="text" name="tgl_lahir" class="form-control" placeholder="Masukkan tanggal lahir anda" id="tanggalLahir" required readonly>
+                                        <input type="text" name="tgl_lahir" class="form-control " placeholder="Masukkan tanggal lahir anda" id="tanggalLahir" required readonly>
 
                                     </div>
                                 </div>
@@ -373,38 +376,29 @@
                                     <div class="form-group">
                                         <label class="sr-only">NPWP <small>(opsional)</small></label>
                                         <input type="text" name="npwp" class="form-control  " value="" placeholder="Masukkan Nomor NPWP" id="npwp" maxlength="15">
-
-
-
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Foto Selfie dengan KTP<span class="text-danger">*</span></label>
-                                        {{-- <input type="file" name="fotoKTP" class="form-control"
-                                            style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoKTP"
-                                            onchange="previewImageKTP()" required> --}}
-                                        <input type="file" name="fotoKTP" class="form-control" style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoKTP" required>
+                                        <input type="file" name="fotoKTP" class="form-control " style="position:relative;" id="fotoKTP" required>
                                         <div class="row">
                                             <img class="img-preview-ktp img-fluid mt-1 col-sm-8" />
                                         </div>
-                                        <small>File dalam bentuk JPG,PNG,JPEG </small>
+                                        <small>File dalam bentuk JPG,PNG,JPEG dan maksimal 5MB </small>
+                                        {{-- <small>File dalam bentuk JPG,PNG,JPEG </small> --}}
                                         {{-- <button class="btn btn-danger" type="button">test</button> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-4 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Foto Tanda Tangan<span class="text-danger">*</span></label>
-                                        {{-- <input type="file" name="fotoKTP" class="form-control"
-                                            style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoKTP"
-                                            onchange="previewImageKTP()" required> --}}
-                                        <input type="file" name="fotoTandaTangan" class="form-control" style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoTandaTangan" required>
+                                        <input type="file" name="fotoTandaTangan" class="form-control " style="position:relative;" id="fotoTandaTangan" required>
                                         <div class="row">
                                             <img class="img-preview-signature img-fluid mt-1 col-sm-8" />
                                         </div>
-                                        <small>File dalam bentuk JPG,PNG,JPEG </small>
-                                        {{-- <button class="btn btn-danger" type="button">test</button> --}}
+                                        <small>File dalam bentuk JPG,PNG,JPEG dan maksimal 5MB </small>
                                     </div>
                                 </div>
 
@@ -525,7 +519,7 @@
                                         <label class="sr-only">Keperluan<span class="text-danger">*</span></label>
 
                                         <select class="form-control" name="jenisKeperluan" id="jenisKeperluan" placeholder="--Pilih Jenis Keperluan--" required>
-                                            <option selected hidden>---Pilih Keperluan---</option>
+                                            <option value="" selected hidden>---Pilih Keperluan---</option>
                                             <option value="1">Investasi</option>
                                             <option value="2">Modal Kerja</option>
 
@@ -572,7 +566,7 @@
                                         </div>
                                         <div class="col-8">
                                             {{-- <input type="hidden" id="limitPengajuan"/> --}}
-                                            <input type="text" class="form-control" name="jlhPenghasilan" id="jlhPenghasilan" placeholder="Masukkan Jumlah Nominal" max="100" value="1.000.000" readonly oninput="this.form.amountRangePenghasilan.value=this.value" step="1">
+                                            <input type="text" class="form-control" name="jlhPenghasilan" id="jlhPenghasilan" placeholder="Masukkan Jumlah Nominal" value="1.000.000" readonly oninput="this.form.amountRangePenghasilan.value=this.value">
                                             <input type="range" name="amountRangePenghasilan" id="pointsPenghasilan" value="40" min="1" max="100" oninput="this.form.jlhPenghasilan.value=this.value" step="1" />
 
                                         </div>
@@ -596,7 +590,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input type="hidden" id="limitPengajuan" />
-                                            <input type="text" class="form-control" name="jlhDimohon" id="jlhDimohon" placeholder="Masukkan Jumlah Nominal" max="500" value="1.000.000" readonly oninput="this.form.amountRangePengajuan.value=this.value" step="1">
+                                            <input type="text" class="form-control" name="jlhDimohon" id="jlhDimohon" placeholder="Masukkan Jumlah Nominal" value="1.000.000" readonly oninput="this.form.amountRangePengajuan.value=this.value">
                                             <input type="range" name="amountRangePengajuan" id="pointsDimohon" value="40" min="1" max="500" oninput="this.form.jlhDimohon.value=this.value" step="1" />
 
                                         </div>
@@ -664,10 +658,6 @@
                                         <label class="sr-only">Cabang Bank Sumut Terdekat<span class="text-danger">*</span></label>
 
                                         <select name="namaCabang" class="form-red bussiness form-select nama-cabang" id="namaCabang" required>
-                                            {{-- <option value="" selected>----Jenis Pembiayaan---</option>
-                                                    <option value="KUR" @if (old('ketIzinUsaha') == 'KUR') {{ 'selected' }} @endif>KUR</option>
-                                            <option value="KMSB" @if (old('ketIzinUsaha')=='KMSB' ) {{ 'selected' }} @endif>KMSB</option> --}}
-                                            {{-- <option value="">---Pilih Nama Cabang---</option> --}}
                                             @foreach ($listKodeCabang as $lkc)
                                             <option value="{{ $lkc->branch_id }}-{{ $lkc->branch_name }}">
                                                 {{ $lkc->branch_name }}</option>
@@ -685,9 +675,11 @@
                                         <div class="row">
                                             <img class="img-preview-tempat-usaha img-fluid mt-2 col-sm-8" />
                                         </div>
-                                        <small>File dalam bentuk JPG,PNG,JPEG</small>
+                                        <small>File dalam bentuk JPG,PNG,JPEG dan maksimal 5MB </small>
 
                                     </div>
+
+                                    <input type="hidden" id="gunakanAgunan" />
 
                                 </div>
 
@@ -715,7 +707,7 @@
                             <h3>Agunan</h3>
 
                             <div class="row mt-3">
-                                <div class="col-md-4 my-2">
+                                {{-- <div class="col-md-4 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Apakah pengajuan menggunakan agunan<span class="text-danger">*</span></label>
 
@@ -729,8 +721,8 @@
 
 
                                     </div>
-                                </div>
-
+                                </div> --}}
+                            
                                 <div class="form-group row" id="formAgunan">
                                     <div class="input-group-addon">
                                         <button id="add" type="button" class="btn btn-success addMore" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -744,7 +736,7 @@
                                                     {{-- <th scope="col">#</th> --}}
                                                     <th scope="col">Jenis Agunan</th>
                                                     <th scope="col">Jeni Dokumen Agunan</th>
-                                                    
+
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -754,6 +746,20 @@
                                         </table>
 
                                     </div>
+
+
+
+                                </div>
+                                {{-- <div >...</div> --}}
+
+                                <div class="form-group row" id="formTanpaAgunan">
+                                    <div class="input-group-addon">
+                                        <h5>Anda tidak menggunakan agunan. Silahkan untuk lanjutkan</h5>
+                                        <button type="button" id="btnLanjutkanTnpAgunan" class="btn btn-success " data-toggle="modal"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            Lanjutkan</button>
+
+                                    </div>
+
 
 
 
@@ -791,7 +797,10 @@
 
 
 
-                            <div class="form-check">
+
+
+
+                            <div class="form-check mt-2">
                                 {{-- <input class="form-check-input " type="checkbox" id="setujuKirim"  value=""  name="cekPengajuan" required > --}}
                                 <input class="form-check-input " type="checkbox" id="setujuKirim" value="" name="cekPengajuan" required>
                                 <label class="form-check-label px-1" for="flexCheckDefault" id="labelSetujuKirim">
@@ -830,7 +839,7 @@
         <br /> &nbsp;
     </div>
     <div class="modal fade " id="addAgunanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Form Tambah Agunan</h5>
@@ -839,28 +848,33 @@
                     </button>
                 </div>
 
-                <form action="" id="fieldAgunan" class="needs-validation " novalidate>
-                    <div class="modal-body">
-
-                        <div class="col-sm-12" id="agunan-1">
-                            <h3> Benda Agunan </h3>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label class="sr-only">Jenis Agunan<span class="text-danger">*</span></label>
-
-                                    <select class="form-control" name="jenisAgunan" id="jenisAgunan" placeholder="--Pilih Jenis Agunan--" required>
-                                        <option selected value="" hidden>---Pilih Jenis Dokumen---</option>
-                                        <option value="Tanah">Tanah</option>
-                                        <option value="Rumah">Rumah</option>
-                                        <option value="Ruko">Ruko</option>
-                                        <option value="Apartemen">Apartemen</option>
+                <div class="modal-body">
 
 
+                    <div class="col-sm-12">
+                        <h3> Benda Agunan </h3>
+                        <form role="form" id="fieldAgunan" class="row row-cols-1 ms-1 me-5 needs-validation" novalidate>
 
-                                    </select>
 
+                            {{-- <div class="row"> --}}
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="jenisAgunan">Jenis Agunan<span class="text-danger">*</span></label>
+                                        
+                                
+                                            <select class="form-control" name="jenisAgunan" id="jenisAgunan" placeholder="--Pilih Jenis Agunan--" required>
+                                                <option selected value="" hidden>---Pilih Jenis Dokumen---</option>
+                                                <option value="Tanah">Tanah</option>
+                                                <option value="Rumah">Rumah</option>
+                                                <option value="Ruko">Ruko</option>
+                                                <option value="Apartemen">Apartemen</option>
+                                            </select>
+                                     
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
+                                
+                                
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="sr-only">Jenis Dokumen Agunan<span class="text-danger">*</span></label>
                                         <select class="form-control" name="jenisDokumenAgunan" id="jenisDokumenAgunan" placeholder="--Pilih Jenis Agunan--" required>
@@ -873,13 +887,11 @@
                                             <option value="BPKB">BPKB</option>
                                             <option value="SKCAMAT">SKCAMAT</option>
                                             <option value="Lainnya">Lainnya</option>
-
-
                                         </select>
 
                                     </div>
                                 </div>
-                                <div class="col-sm-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Alamat / Lokasi Bangunan<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="alamatAgunan" id="alamatAgunan" placeholder="Alamat / Lokasi Agunan" required>
@@ -887,19 +899,19 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Luas Tanah (m2) <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="luasTanahAgunan" id="luasTanahAgunan" placeholder="Luas Tanah (m2) " required>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Luas Bangunan (m2) <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="luasBangunanAgunan" id="luasBangunanAgunan" placeholder="Luas Bangunan (m2) " required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Perkiraan Nilai Agunan<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="perkiraanNilaiAgunan" id="perkiraanNilaiAgunan" placeholder="Perkiraan Nilai Agunan" required>
@@ -907,13 +919,13 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Nomor Surat Agunan<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nomorSuratAgunan" id="nomorSuratAgunan" placeholder="Nomor Surat Agunan" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Provinsi Agunan<span class="text-danger">*</span></label>
                                         <select type="text" class="form-control" name="provinsiAgunan" id="provinsiAgunan" placeholder="Nomor Surat Agunan" required>
@@ -924,7 +936,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Kabupaten/ Kota Agunan<span class="text-danger">*</span></label>
                                         <select type="text" class="form-control" name="kabupatenAgunan" id="kabupatenAgunan" placeholder="Nomor Surat Agunan" required>
@@ -932,7 +944,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Kecamatan Agunan<span class="text-danger">*</span></label>
                                         <select type="text" class="form-control" name="kecamatanAgunan" id="kecamatanAgunan" placeholder="Nomor Surat Agunan" required>
@@ -940,7 +952,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Desa / Kelurahan Agunan<span class="text-danger">*</span></label>
                                         <select type="text" class="form-control" name="kelurahanAgunan" id="kelurahanAgunan" placeholder="Nomor Surat Agunan" required>
@@ -951,20 +963,20 @@
 
                                 <input type="hidden" name="clusterAssign" id="clusterAssign" />
 
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Foto Tampak Agunan Secara Jelas Menyeluruh<span class="text-danger">*</span></label>
                                         <input type="file" name="fotoAgunanMenyeluruh" class="form-control" style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoAgunanMenyeluruh" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Foto Bukti Pembayaran PBB/Pajak Agunan atau Dokumen
                                             Pelengkap lainnnya<span class="text-danger">*</span></label>
                                         <input type="file" name="fotoBuktiPajak" class="form-control" style="position:relative;" accept=".jpg, .jpeg, .png" id="fotoBuktiPajak" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-sm-6 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Foto Bagian Halaman yang Menampilkan Nomor Surat, Luas
                                             dan Nama Pemilik Agunan<span class="text-danger">*</span></label>
@@ -972,19 +984,19 @@
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
+                             
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Batalkan</button>
+                    <button type="button" class="btn btn-primary" id="addButtonAgunan">Tambahkan</button>
+                </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Batalkan</button>
-                <button type="button" class="btn btn-primary" id="addButtonAgunan">Tambahkan</button>
-            </div>
-            </form>
 
 
+            </div>
         </div>
-    </div>
     </div>
 
 
@@ -1007,7 +1019,7 @@
                             {{-- <h3> Detail Agunan</h3> --}}
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Jenis Agunan</label>
+                                    <label class="sr-only font-weight-bold">Jenis Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivJenisAgunan"></p>
@@ -1015,7 +1027,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Jenis Dokumen Agunan</label>
+                                    <label class="sr-only font-weight-bold">Jenis Dokumen Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivJenisDocAgunan"></p>
@@ -1023,7 +1035,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Alamat Agunan</label>
+                                    <label class="sr-only font-weight-bold">Alamat Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivAlamatAgunan"></p>
@@ -1031,18 +1043,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Luas Tanah Agunan</label>
+                                    <label class="sr-only font-weight-bold">Luas Tanah Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivLuasTanahAgunan"></p>
                                 </div>
                             </div>
 
-                            
-                            
+
+
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Luas Bangunan Agunan</label>
+                                    <label class="sr-only font-weight-bold">Luas Bangunan Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivLuasBangunanAgunan"></p>
@@ -1050,7 +1062,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Perkiraan Nilai Agunan</label>
+                                    <label class="sr-only font-weight-bold">Perkiraan Nilai Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivHargaAgunan"></p>
@@ -1058,7 +1070,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Nomor Surat Agunan</label>
+                                    <label class="sr-only font-weight-bold">Nomor Surat Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivNoSuratAgunan"></p>
@@ -1066,7 +1078,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Provinsi Agunan</label>
+                                    <label class="sr-only font-weight-bold">Provinsi Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivProvinsiAgunan"></p>
@@ -1074,7 +1086,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only">Kabupaten / Kecamatan Agunan</label>
+                                    <label class="sr-only font-weight-bold">Kabupaten / Kota Agunan</label>
                                 </div>
                                 <div class="col-sm-4">
                                     <p id="rivKabKotAgunan"></p>
@@ -1104,7 +1116,7 @@
                                     <p id="rivKodeKlaster"></p>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label class="sr-only" style=" max-width: 100%;width:500px;">Tampak Depan Agunan</label>
@@ -1115,7 +1127,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label class="sr-only" style=" max-width: 100%;width:500px;" >Foto Bukti Bayar PBB Agunan</label>
+                                    <label class="sr-only" style=" max-width: 100%;width:500px;">Foto Bukti Bayar PBB Agunan</label>
                                 </div>
                                 <div class="col-sm-4 mt-2">
                                     <img id="rivPajakAgunan" style="width:100%" />
@@ -1187,12 +1199,18 @@
 
 
     <script src="{{ asset('plugins/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/additional-methods.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>  --}}
 
     <script src="{{ asset('plugins/js/app3.js') }}"></script>
 
     <script src="{{ asset('plugins/js/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('plugins/js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> --}}
+
+
 
 
 

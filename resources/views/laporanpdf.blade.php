@@ -42,11 +42,11 @@
         </tr>
         <tr>
             <th>FOTO Selfie KTP</th>
-            <th><img width="400" height="250" src="{{$foto_selfie_ktp }}"></th>        
+            <th><img style="max-width: 80%;width:500px;" src="{{$foto_selfie_ktp }}"></th>        
         </tr>
         <tr>
             <th>Foto Tempat Usaha</th>
-            <th><img width="400" height="250" src="{{$foto_selfie_ktp }}"></th>        
+            <th><img style="max-width: 80%;width:500px;" src="{{$foto_selfie_ktp }}"></th>        
         </tr>
         
         

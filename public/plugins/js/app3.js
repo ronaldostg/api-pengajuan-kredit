@@ -20,79 +20,6 @@ var fotoAgunan = [];
 
 var urlIamgeFotoKTP = "";
 
-//$('#smartwizard').smartWizard("reset");
-
-function onFinish() {
-    // alert('Finish Clicked');
-    Swal.fire({
-        title: "Halo",
-        icon: "info",
-
-        // html:'<h4>Masukkan tanda tangan anda</h4> <div style="width: 100%;height: auto;border: 1px solid black;"></div><br/>'
-        // html:'<h4>Masukkan tanda tangan anda</h4> <div style="width: 100%;height: auto;border: 1px solid black;"></div><br/>'
-    });
-    console.log("kirimkan");
-
-    formPengajuan.append("nama_debitur", $("#nama").val());
-    formPengajuan.append("nomor_nik", $("#nik").val());
-    formPengajuan.append("email", $("#email").val());
-    formPengajuan.append("alamat_debitur", $("#alamatDebitur").val());
-    formPengajuan.append("nomor_telepon1", $("#notelp1").val());
-    // formPengajuan.append('nomor_telepon2',$('#notelp2').val());
-    formPengajuan.append("tanggal_lahir", $("#tanggalLahir").val());
-    formPengajuan.append("npwp", $("#npwp").val());
-    formPengajuan.append("foto_selfie_ktp", $("#fotoKTP")[0].files[0]);
-
-    // form di step 2
-    formPengajuan.append("status_kepunyaan_rekening", $("#punyaNorek").val());
-    formPengajuan.append("norek_bs", $("#noRekBS").val());
-    formPengajuan.append("nama_ibu", $("#namaIbu").val());
-    formPengajuan.append("status_kawin", $("#statusKawin").val());
-
-    // form di step 3
-    formPengajuan.append("jenis_keperluan", $("#jenisKeperluan").val());
-    formPengajuan.append("jenis_produk_pinjaman", $("#credit_id").val());
-    formPengajuan.append("product_id", $("#credit_id").val());
-    formPengajuan.append("gaji_bersih", $("#jlhPenghasilan").val());
-    formPengajuan.append("loan_period", $("#jlhJangkaWaktu").val());
-    formPengajuan.append("tujuan_guna", $("#listTujuanKredit").val());
-    formPengajuan.append("kode_cabang", $("#namaCabang").val().split("-")[0]);
-    formPengajuan.append(
-        "foto_tempat_usaha",
-        $("#fotoTempatUsaha")[0].files[0]
-    );
-    formPengajuan.append(
-        "foto_tanda_tangan",
-        $("#fotoTandaTangan")[0].files[0]
-    );
-
-    formPengajuan.append("agunan", $("#fotoTandaTangan")[0].files[0]);
-
-    // form di step 4
-    // // console.log(listAgunan)
-    // formPengajuan.append('is_agunan', $('#gunakanAgunan').val())
-    // for(var i=0;i<listAgunan.length;i++){
-    //     formPengajuan.append('jenisAgunan[]',listAgunan[i]['jenisAgunan'])
-    // }
-    // formPengajuan.append('item_agunan', listAgunan)
-
-    // console.log('form pengajuan')
-    // // console.log(JSON.stringify(formPengajuan.values()))
-
-    // $.ajax({
-    //     url:'http://127.0.0.1:8081/api/insert-pengajuan',
-    //     type:'POST',
-    //     data : formPengajuan,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     success:function(res){
-    //         console.log('respon '+ JSON.stringify(res) )
-    //     }
-
-    // })
-}
-
 function previewImageKTP() {
     const image = document.querySelector("#fotoKTP");
 
@@ -107,10 +34,6 @@ function previewImageKTP() {
     oFReader.onload = function (oFREvent) {
         imgPreview.src = oFREvent.target.result;
     };
-
-    // $('#smartwizard').smartWizard({
-    //     autoAdjustHeight: true,
-    // });
 }
 
 function onCancel() {
@@ -121,11 +44,6 @@ document.getElementById("notelp1").addEventListener("keyup", function (evt) {
     var charCode = evt.which ? evt.which : evt.keyCode;
     phoneNumber.value = phoneFormat(phoneNumber.value);
 });
-// document.getElementById('notelp2').addEventListener('keyup', function(evt) {
-//     var phoneNumber = document.getElementById('notelp2');
-//     var charCode = (evt.which) ? evt.which : evt.keyCode;
-//     phoneNumber.value = phoneFormat(phoneNumber.value);
-// });
 
 function phoneFormat(input) {
     // Strip all characters from the input except digits
@@ -158,9 +76,6 @@ function phoneFormat(input) {
 document.getElementById("notelp1").value = phoneFormat(
     document.getElementById("notelp1").value
 );
-// document.getElementById('notelp2').value = phoneFormat(document.getElementById('notelp2').value);
-
-// const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
 function onCancel() {
     // Reset wizard
@@ -178,7 +93,6 @@ function getAjaxKecamatanAgunan() {
     $.ajax({
         type: "GET",
         dataType: "html",
-        // url: urlMain + '127.0.0.1:8000loadkecamatan',
         url: "/loadkecamatan",
         data: {
             kabkota: id_kabupaten,
@@ -224,13 +138,13 @@ function fetchClusterAssign() {
     var id_kecamatan = $("#kecamatanAgunan").val();
     var id_kelurahan = $("#kelurahanAgunan").val();
 
-    console.log("cek id cluster");
+    // console.log("cek id cluster");
 
     $.ajax({
         type: "POST",
-        // dataType: "html",
-        // url: urlMain + '127.0.0.1:8000loadkecamatan',
-        url: "http://127.0.0.1:8081/api/fetch-clusterassign",
+
+        url: urlMain + "api/fetch-clusterassign",
+        // url: urlMain+"api/fetch-clusterassign",
         data: {
             provinsi: id_provinsi,
             kabupaten: id_kabupaten,
@@ -239,17 +153,7 @@ function fetchClusterAssign() {
         },
 
         success: function (msg) {
-            // console.log();
-            // console.log(msg.kode_klaster);
-            console.log(msg);
             $("#clusterAssign").val(msg);
-            // console.log('data desa kelurahan 1'+msg);
-            // console.log('data desa kelurahan 1'+msg);
-
-            //    $("select#kelurahanAgunan").html(msg);
-
-            // //    console.log('test 123');
-            // fetchClusterAssign();
         },
     });
 }
@@ -275,11 +179,6 @@ function onConfirm() {
         formPengajuan.append("tanggal_lahir", $("#tanggalLahir").val());
         formPengajuan.append("npwp", $("#npwp").val());
         formPengajuan.append("jenis_kelamin", $("#jenisKelamin").val());
-        // formPengajuan.append('foto_selfie_ktp',$('#fotoKTP')[0].files[0]);
-
-        // formPengajuan.append('foto_selfie_ktp',imageKTPReview);
-        // formPengajuan.append('foto_tempat_usaha',imageFotoUsaha);
-        // formPengajuan.append('foto_tanda_tangan',imageTandaTangan);
 
         formPengajuan.append("foto_selfie_ktp", $("#fotoKTP")[0].files[0]);
         formPengajuan.append(
@@ -323,8 +222,6 @@ function onConfirm() {
             formPengajuan.append("agunan", JSON.stringify(tempDataAgunan));
 
             formPengajuan.append("foto_agunan", JSON.stringify(fotoAgunan));
-
-     
         } else if ($("#gunakanAgunan").val() == 0) {
             formPengajuan.append("agunan", "");
             formPengajuan.append("foto_agunan", "");
@@ -356,178 +253,243 @@ function onConfirm() {
         var format = angsuranPerBulan.toString().split("").reverse().join("");
         var convert = format.match(/\d{1,3}/g);
         var rupiah = convert.join(".").split("").reverse().join("");
-
-
-        if (($("#gunakanAgunan").val()=='1') && (tempDataAgunan.length==0)) {
-            Swal.fire({
-                icon: "error",
-                title: "Maaf...",
-                text: "Jika menggunakan Agunan, Mohon masukkan data agunan anda",
-            });
-            return false;
-        }
-
-        if (jlhPenghasilan < angsuranPerBulan) {
-            Swal.fire({
-                icon: "error",
-                title: "Maaf...",
-                text: "Plafon anda melebihi jumlah penghasilan",
-            });
-            return false;
-        }
+  
+       
 
         // return false;
-        // return false;
+        var nextPengajuan='';
+        $.ajax({
+            type: "POST", 
+            url: urlMain+"api/cek-nohp-pengajuan",
+            data: {
+                nohp: $("#notelp1").val(),
+            },
+            beforeSend: function () {
+                swal.fire({
+                    title: "Menunggu...",
+                    text: "Sedang memproses data",
+                    showConfirmButton: false,
+                    imageUrl: urlMain + "spinning_loading.gif",
+                     
+                });
+            },
+    
+            success: function (msg) {
+               if(msg.rc=='01'){
+                Swal.fire({
+                    icon: "error",
+                    title: "Maaf...",
+                    text: msg.message,
+                });
+                return false
+                
+               }else if(msg.rc=='00'){
 
-        Swal.fire({
-            title: "Kirim Pengajuan",
-            icon: "warning",
-            html: "Apakah anda yakin untuk mengirim pengajuan ?",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ya , kirim pengajuan",
-            cancelButtonText: "Batalkan",
-            allowOutsideClick: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // cek data diri di dukcapil
-                $.ajax({
-                    url: "http://127.0.0.1:8081/api/check-dukcapil",
-                    type: "POST",
+                if (jlhDimohon > 100000000 && tempDataAgunan == []) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Maaf...",
+                        text: " Mohon untuk mengisi data agunan karena plafon yang dimohon melebihi Rp.100.000.000.",
+                    }); 
+                    return false;
+                }
 
-                    data: {
-                        nik: $("#nik").val(),
-                        nama: $("#nama").val(),
-                        tgl_lahir: $("#tanggalLahir").val(),
-                    },
+                if ($("#gunakanAgunan").val() == "1" && tempDataAgunan.length == 0) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Maaf...",
+                        text: "Jika menggunakan Agunan, Mohon masukkan data agunan anda",
+                    });
+                    return false;
+                }
+        
+                if (jlhPenghasilan < angsuranPerBulan) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Maaf...",
+                        text: "Plafon anda melebihi jumlah penghasilan",
+                    });
+                    return false;
+                } 
 
-                    beforeSend: function () {
-                        console.log("loading dukcapil");
-                        swal.fire({
-                            title: "Menunggu...",
-                            text: "Data Anda sedang diproses",
-                            showConfirmButton: false,
-                            imageUrl:
-                                "http://127.0.0.1:8000/spinning_loading.gif",
-                            // allowOutsideClick: false
-                        });
-                    },
-                    success: function (res) {
-                        // lakukan cek nama dan NIK nya
-                        if (res.rc == "00") {
-                            $.ajax({
-                                url: "http://127.0.0.1:8081/api/inquery-nik-notelp",
-                                type: "POST",
 
-                                data: {
-                                    nik: $("#nik").val(),
-                                    nohp: $("#notelp1").val(),
-                                    // nama: $("#nama").val(),
-                                    // tgl_lahir: $("#tanggalLahir").val(),
-                                },
-
-                                beforeSend: function () {
-                                    console.log("loading nik notelp");
-                                    swal.fire({
-                                        title: "Menunggu...",
-                                        text: "Data Anda sedang diproses",
-                                        showConfirmButton: false,
-                                        imageUrl:
-                                            "http://127.0.0.1:8000/spinning_loading.gif",
-                                        // allowOutsideClick: false
-                                    });
-                                },
-                                success: function (response) {
-                                    console.log("response" + response);
-                                    if (response.rc == "02") {
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "Maaf...",
-                                            text:
-                                                response.message
-                                                
-                                        });
-                                        // tampilkan data NIK yang sudah ada di database
-                                        // dikasi pilihan jika pilih iya maka
-                                        // OTP dikirm ke nomor NIK yang sudah terdaftar
-                                        // kalau tidak , jangan kirim
-                                    } else if (response.rc == "01") {
-                                        var isiPesan = response.data;
-                                        // console.log(JSON.stringify(isiPesan));
-                                        var tbl = `
-                                                <center>
-                                                    <table class="table table-borderless">
-                                                        <tr>
-                                                            <td>Nama</td>
-                                                            <td>:</td>
-                                                            <td>${isiPesan.username}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>NIK</td>
-                                                            <td>:</td>
-                                                            <td>${isiPesan.nik}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Email</td>
-                                                            <td>:</td>
-                                                            <td>${isiPesan.mailaddr}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>No. Telepon</td>
-                                                            <td>:</td>
-                                                            <td>${isiPesan.phonenbr}</td>
-                                                        </tr>
-                                                    </table>
-                                                    <h5>${response.message}</h5>
-                                                </center>`;
-
-                                        Swal.fire({
-                                            html: tbl,
-                                            icon: "warning",
-                                            title: "Maaf...",
-                                            // text: +' '+response.rc,
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#3085d6",
-                                            cancelButtonColor: "#d33",
-                                            confirmButtonText:
-                                                "Ya , Lanjutkan Pengajuan",
-                                            cancelButtonText: "Batalkan",
-                                            allowOutsideClick: false,
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // console.log('lanjutkan')
+                Swal.fire({
+                    title: "Kirim Pengajuan",
+                    icon: "warning",
+                    html: "Apakah anda yakin untuk mengirim pengajuan ?",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya , kirim pengajuan",
+                    cancelButtonText: "Batalkan",
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // cek data diri di dukcapil
+                        $.ajax({
+                            url: urlMain + "api/check-dukcapil",
+                            type: "POST",
+        
+                            data: {
+                                nik: $("#nik").val(),
+                                nama: $("#nama").val(),
+                                tgl_lahir: $("#tanggalLahir").val(),
+                            },
+        
+                            beforeSend: function () {
+                                // console.log("loading dukcapil"); 
+                                swal.fire({
+                                    title: "Menunggu...",
+                                    text: "Data Anda sedang diproses",
+                                    showConfirmButton: false,
+                                    imageUrl: urlMain + "spinning_loading.gif",
+                                    // allowOutsideClick: false
+                                });
+                            },
+                            success: function (res) {
+                                // lakukan cek nama dan NIK nya
+                                if (res.rc == "00") {
+                                    $.ajax({
+                                        url: urlMain + "api/inquery-nik-notelp",
+                                        type: "POST",
+        
+                                        data: {
+                                            nik: $("#nik").val(),
+                                            nohp: $("#notelp1").val(),
+                                            // nama: $("#nama").val(),
+                                            // tgl_lahir: $("#tanggalLahir").val(),
+                                        },
+        
+                                        beforeSend: function () {
+                                            console.log("loading nik notelp");
+                                            swal.fire({
+                                                title: "Menunggu...",
+                                                text: "Data Anda sedang diproses",
+                                                showConfirmButton: false,
+                                                imageUrl:
+                                                    urlMain + "spinning_loading.gif",
+                                                // allowOutsideClick: false
+                                            });
+                                        },
+                                        success: function (response) {
+                                            console.log("response" + response);
+                                            if (response.rc == "02") {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Maaf...",
+                                                    text: response.message,
+                                                });
+                                                // tampilkan data NIK yang sudah ada di database
+                                                // dikasi pilihan jika pilih iya maka
+                                                // OTP dikirm ke nomor NIK yang sudah terdaftar
+                                                // kalau tidak , jangan kirim
+                                            } else if (response.rc == "01") {
+                                                var isiPesan = response.data;
+                                                // console.log(JSON.stringify(isiPesan));
+                                                var tbl = `
+                                                        <center>
+                                                            <table class="table table-borderless">
+                                                                <tr>
+                                                                    <td>Nama</td>
+                                                                    <td>:</td>
+                                                                    <td>${isiPesan.username}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>NIK</td>
+                                                                    <td>:</td>
+                                                                    <td>${isiPesan.nik}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email</td>
+                                                                    <td>:</td>
+                                                                    <td>${isiPesan.mailaddr}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>No. Telepon</td>
+                                                                    <td>:</td>
+                                                                    <td>${isiPesan.phonenbr}</td>
+                                                                </tr>
+                                                            </table>
+                                                            <h5>${response.message}</h5>
+                                                        </center>`;
+        
+                                                Swal.fire({
+                                                    html: tbl,
+                                                    icon: "warning",
+                                                    title: "Maaf...",
+                                                    // text: +' '+response.rc,
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: "#3085d6",
+                                                    cancelButtonColor: "#d33",
+                                                    confirmButtonText:
+                                                        "Ya , Lanjutkan Pengajuan",
+                                                    cancelButtonText: "Batalkan",
+                                                    allowOutsideClick: false,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // console.log('lanjutkan')
+                                                        kirimkanOTP(formPengajuan);
+                                                    }
+                                                });
+        
+                                                // langsung kasi kode OTP yang diambil dari angka inputan
+                                            } else if (response.rc == "00") {
                                                 kirimkanOTP(formPengajuan);
                                             }
-                                        });
-
-                                        // langsung kasi kode OTP yang diambil dari angka inputan
-                                    } else if (response.rc == "00") {
-                                        kirimkanOTP(formPengajuan);
-                                    }
-                                },
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Maaf...",
-                                text: res.message,
-                            });
-                        }
-                        // }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(
-                            xhr.status +
-                                "\n" +
-                                xhr.responseText +
-                                "\n" +
-                                thrownError
-                        );
-                    },
+                                        },
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Maaf...",
+                                        text: res.message,
+                                    });
+                                }
+                                // }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert(
+                                    xhr.status +
+                                        "\n" +
+                                        xhr.responseText +
+                                        "\n" +
+                                        thrownError
+                                );
+                            },
+                        });
+                    }
                 });
-            }
+
+               }
+    
+            },
+            error: function (
+                xhr,
+                ajaxOptions,
+                thrownError
+            ) {
+                alert(
+                    xhr.status +
+                        "\n" +
+                        xhr.responseText +
+                        "\n" +
+                        thrownError
+                );
+            },
         });
+
+        
+        
+        // return false;
+     
+         
+
+        
+
+        return false;
+        // return false;
+
+      
     }
 }
 
@@ -535,14 +497,13 @@ function kirimkanOTP(formData) {
     var response = [];
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8081/api/kirim-otp",
+        url: urlMain + "api/kirim-otp",
         data: {
             nohp: $("#notelp1").val(),
             nik: $("#nik").val(),
+            email: $("#email").val(),
         },
-        success: function (data) {
-            console.log("data OTP" + data);
-        },
+        success: function (data) {},
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
         },
@@ -575,7 +536,6 @@ function kirimkanOTP(formData) {
             const display = Swal.getHtmlContainer().querySelector("b");
 
             timerInterval = setInterval(function () {
-                // console.log(timer)
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
 
@@ -595,7 +555,7 @@ function kirimkanOTP(formData) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "http://127.0.0.1:8081/api/check-otp",
+                url: urlMain + "api/check-otp",
                 type: "POST",
                 data: {
                     kodeKirim: result.value,
@@ -615,27 +575,18 @@ function kirimkanOTP(formData) {
                         willClose: () => {
                             clearInterval(timerInterval);
                         },
-                    }).then((result) => {
-                        /* Read more about handling dismissals below */
-                        // if (result.dismiss === Swal.DismissReason.timer) {
-                        //     console.log('I was closed by the timer')
-                        // }
-                    });
+                    }).then((result) => {});
                 },
                 success: function (mes) {
-                    // console.log('hasil kirim OTP'+JSON.stringify(mes));
                     if (mes.rc != "00") {
                         Swal.fire({
                             icon: "error",
                             title: "Maaf...",
                             text: mes.message,
                         });
-                        //                         } else {
-                        console.log("ada kesalahan");
                     } else {
-                        console.log("gak ada lagi ");
                         $.ajax({
-                            url: "http://127.0.0.1:8081/api/save-document",
+                            url: urlMain + "api/save-document",
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -646,23 +597,13 @@ function kirimkanOTP(formData) {
                                     title: "Menunggu...",
                                     text: "Data Anda Akan Dikirim",
                                     showConfirmButton: false,
-                                    imageUrl:
-                                        "http://127.0.0.1:8000/spinning_loading.gif",
+                                    imageUrl: urlMain + "spinning_loading.gif",
+                                    allowOutsideClick: false,
                                 });
                             },
 
                             success: function (res) {
-                                console.log(
-                                    "hasil kirim ke appraisal" +
-                                        JSON.stringify(res)
-                                );
-                                // var noticeData = res.data_pengaju;
-
                                 if (res.rc == "01") {
-                                    console.log(
-                                        "ada pengajuan yang belum diproses"
-                                    );
-
                                     swal.fire({
                                         icon: "error",
                                         title: "<h4>Maaf</h4>",
@@ -682,10 +623,11 @@ function kirimkanOTP(formData) {
                                         );
                                         if (result.isConfirmed) {
                                             // window.location('/');
-                                            location.href =
-                                                "http://127.0.0.1:8000/";
+                                            location.href = urlMain;
                                             $.ajax({
-                                                url: "http://127.0.0.1:8081/api/send-success-pengajuan",
+                                                url:
+                                                    urlMain +
+                                                    "api/send-success-pengajuan",
                                                 // url:'http://127.0.0.1:8000/api/save-document',
                                                 type: "POST",
                                                 data: {
@@ -698,12 +640,7 @@ function kirimkanOTP(formData) {
                                                     email: noticeData.email,
                                                 },
 
-                                                success: function (message) {
-                                                    console.log(
-                                                        "res kirim berhasil " +
-                                                            message
-                                                    );
-                                                },
+                                                success: function (message) {},
                                                 error: function (
                                                     xhr,
                                                     ajaxOptions,
@@ -734,7 +671,6 @@ function kirimkanOTP(formData) {
                                         xhr.status +
                                         "\n" +
                                         xhr.responseText,
-                                    // footer: '<a href="">Why do I have this issue?</a>'
                                 });
                             },
                         });
@@ -747,10 +683,6 @@ function kirimkanOTP(formData) {
         }
     });
 }
-
-
-
-
 
 function closeModal() {
     // Reset wizard
@@ -771,7 +703,6 @@ function detailAgunan(id) {
     var datas = $.grep(listAgunan, function (e) {
         return e.id != id;
     });
-    console.log(res);
 
     detailAgunanModal.show();
     $("#rivJenisAgunan").html(res.jenisAgunan);
@@ -782,7 +713,7 @@ function detailAgunan(id) {
     $("#rivLuasTanahAgunan").html(res.luasTanahAgunan);
 
     $("#rivLuasTanahAgunan").html(res.luasTanahAgunan);
-    
+
     $("#rivLuasBangunanAgunan").html(res.luasBangunanAgunan);
     $("#rivHargaAgunan").html(`Rp ${res.perkiraanNilaiAgunan}`);
 
@@ -803,7 +734,6 @@ function detailAgunan(id) {
 function deleteAgunan(id) {
     var didConfirm = confirm("Yakin untuk hapus agunan ? ");
     if (didConfirm == true) {
-        // console.log('id'+id)
         var rowId = document.getElementById("R" + id);
 
         for (var i = 0; i < listAgunan.length; i++) {
@@ -814,78 +744,11 @@ function deleteAgunan(id) {
         }
 
         rowId.remove();
-        console.log(listAgunan);
         return true;
     } else {
         return false;
     }
 }
-
-// var canvas = document.getElementById('signature-pad');
-// // console.log('tests')
-
-// // Adjust canvas coordinate space taking into account pixel ratio,
-// // to make it look crisp on mobile devices.
-// // This also causes canvas to be cleared.
-// function resizeCanvas() {
-//     // When zoomed out to less than 100%, for some very strange reason,
-//     // some browsers report devicePixelRatio as less than 1
-//     // and only part of the canvas is cleared then.
-//     var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-//     canvas.width = canvas.offsetWidth * ratio;
-//     canvas.height = canvas.offsetHeight * ratio;
-//     canvas.getContext("2d").scale(ratio, ratio);
-// }
-
-// window.onresize = resizeCanvas;
-// resizeCanvas();
-
-// var signaturePad = new SignaturePad(canvas, {
-//   backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
-// });
-
-// document.getElementById('save-png').addEventListener('click', function () {
-//   if (signaturePad.isEmpty()) {
-//     return alert("Please provide a signature first.");
-//   }
-
-//   var data = signaturePad.toDataURL('image/png');
-//   console.log(data);
-// //   window.open(data);
-// });
-
-// document.getElementById('save-jpeg').addEventListener('click', function () {
-//   if (signaturePad.isEmpty()) {
-//     return alert("Please provide a signature first.");
-//   }
-
-//   var data = signaturePad.toDataURL('image/jpeg');
-//   console.log(data);
-// //   window.open(data);
-// });
-
-// document.getElementById('save-svg').addEventListener('click', function () {
-//   if (signaturePad.isEmpty()) {
-//     return alert("Please provide a signature first.");
-//   }
-
-//   var data = signaturePad.toDataURL('image/svg+xml');
-//   console.log(data);
-//   console.log(atob(data.split(',')[1]));
-// //   window.open(data);
-// });
-
-// document.getElementById('clear').addEventListener('click', function () {
-//   signaturePad.clear();
-// });
-
-// document.getElementById('undo').addEventListener('click', function () {
-// 	var data = signaturePad.toData();
-//   if (data) {
-//     data.pop(); // remove the last dot or line
-//     signaturePad.fromData(data);
-//   }
-// });
 
 function PMT(ir, np, pv, fv, type) {
     // return false;
@@ -914,8 +777,14 @@ function PMT(ir, np, pv, fv, type) {
 }
 
 $(function () {
+    $("#btnLanjutkanTnpAgunan").on("click", function () {
+        // $("#smartwizard").on("showStep");
+        $("#smartwizard").smartWizard("next");
+    });
 
-    //ajax unutuk pilih desa kelurahan
+    // $("#smartwizard").on(
+    //     "showStep",
+
     $("#provinsiAgunan").on("change", function () {
         //   console.log('value provinsi '+$(this).val())
 
@@ -924,27 +793,18 @@ $(function () {
             dataType: "html",
             // url: urlMain + '127.0.0.1:8000loadkecamatan',
             url: "/loadkabupaten",
-            // url: "http://127.0.0.1:8081/loadkabupaten",
-            // url: "http://127.0.0.1:8081/api/loadkabupaten",
             data: {
                 provinsi: this.value,
             },
 
             success: function (msg) {
-                console.log(msg)
-
-                // console.log("select#kabupatenAgunan");
+                console.log(msg);
 
                 $("select#kabupatenAgunan").html(msg);
 
                 getAjaxKecamatanAgunan();
-                // fetchClusterAssign()
-
-                // getAjaxDesaKel();
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -957,7 +817,6 @@ $(function () {
                     // footer: '<a href="">Why do I have this issue?</a>'
                 });
             },
-
         });
     });
     $("#kabupatenAgunan").on("change", function () {
@@ -966,14 +825,12 @@ $(function () {
             dataType: "html",
             // url: urlMain + '127.0.0.1:8000loadkecamatan',
             url: "/loadkecamatan",
-            // url: "http://127.0.0.1:8081/loadkecamatan",
+            // url: urlMain+"loadkecamatan",
             data: {
                 kabkota: this.value,
             },
 
             success: function (msg) {
-                //console.log(msg);
-
                 $("select#kecamatanAgunan").html(msg);
 
                 getAjaxKecamatanAgunan();
@@ -991,7 +848,7 @@ $(function () {
             dataType: "html",
             // url: urlMain + '127.0.0.1:8000loadkecamatan',
             url: "/loadkelurahan",
-            // url: "http://127.0.0.1:8081/loadkelurahan",
+            // url: urlMain+"loadkelurahan",
             data: {
                 kelurahan: id_kecamatan,
                 // kelurahan: id_kecamatan,
@@ -1001,7 +858,6 @@ $(function () {
                 // console.log('data keluarahan 2'+msg);
 
                 $("select#kelurahanAgunan").html(msg);
-                // console.log('test 1234');
                 fetchClusterAssign();
                 fetchClusterAssign();
             },
@@ -1013,26 +869,6 @@ $(function () {
     $("#kelurahanAgunan").on("change", function () {
         // console.log('test');
         fetchClusterAssign();
-        //   console.log('nilai kabupaten'+$(this).val)
-        // var id_kecamatan = $('#kecamatanAgunan').val();
-
-        // $.ajax({
-        //     type: "GET",
-        //     dataType: "html",
-        //     // url: urlMain + '127.0.0.1:8000loadkecamatan',
-        //     url: '/loadkelurahan',
-        //     data: {
-        //         kelurahan: id_kecamatan,
-        //         // kelurahan: id_kecamatan,
-        //     },
-
-        //     success: function(msg) {
-        //         // console.log('data keluarahan 2'+msg);
-
-        //         $("select#kelurahanAgunan").html(msg);
-
-        //     }
-        // });
     });
 
     var rowIdx = 0;
@@ -1045,8 +881,6 @@ $(function () {
         var fieldFotoSeluruhAgunan = document.querySelector(
             "#fotoAgunanMenyeluruh"
         );
-        // var fieldFotoBuktiPajak = document.querySelector('#fotoBuktiPajak');
-        // var fieldFotoSuratAgunan = document.querySelector('#fotoSuratAgunan');
         const readFoto = new FileReader();
 
         readFoto.readAsDataURL(fieldFotoSeluruhAgunan.files[0]);
@@ -1077,31 +911,175 @@ $(function () {
             fotoSuratAgunan = oFREvent.target.result;
         };
     });
+    $("#fieldAgunan").validate({
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+        rules: {
+            jenisAgunan: {
+                required: true,
+            },
+            jenisDokumenAgunan: {
+                required: true,
+            },
+            alamatAgunan: {
+                required: true,
+            },
+            luasTanahAgunan: {
+                required: true,
+            },
+            luasBangunanAgunan: {
+                required: true,
+            },
+            perkiraanNilaiAgunan: {
+                required: true,
+            },
+            nomorSuratAgunan: {
+                required: true,
+            },
+            provinsiAgunan: {
+                required: true,
+            },
+            kabupatenAgunan: {
+                required: true,
+            },
+            kecamatanAgunan: {
+                required: true,
+            },
+            kelurahanAgunan: {
+                required: true,
+            },
+            fotoAgunanMenyeluruh: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+            fotoBuktiPajak: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+            fotoSuratAgunan: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+        },
+        messages: {
+            jenisAgunan: {
+                required: "Isi Jenis Agunan anda",
+            },
+            jenisDokumenAgunan: {
+                required: "Isi Jenis Dokumen Agunan anda",
+            },
+            alamatAgunan: {
+                required: "Isi Alamat Agunan anda",
+            },
+            luasTanahAgunan: {
+                required: "Isi Luas Tanah Agunan anda",
+            },
+            luasBangunanAgunan: {
+                required: "Isi Luas Bangunan Agunan anda",
+            },
+            perkiraanNilaiAgunan: {
+                required: "Isi Perkiraan Harga Agunan anda",
+            },
+            nomorSuratAgunan: {
+                required: "Isi Nomor Surat Agunan anda",
+            },
+            provinsiAgunan: {
+                required: "Isi Provinsi Agunan anda",
+            },
+            kabupatenAgunan: {
+                required: "Isi Kabupaten Agunan anda",
+            },
+            kecamatanAgunan: {
+                required: "Isi Kecamatan Agunan anda",
+            },
+            kelurahanAgunan: {
+                required: "Isi Kelurahan Agunan anda",
+            },
+            fotoAgunanMenyeluruh: {
+                required: "Upload foto Keseluruhan Agunan anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload bukan foto",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+            fotoBuktiPajak: {
+                required: "Upload foto Bukti Pajak Agunan anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload bukan foto",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+            fotoSuratAgunan: {
+                required: "Upload foto Surat Agunan anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload bukan foto",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+        },
+       
+    });
+
+
 
     $("#addButtonAgunan").on("click", function (e) {
         e.preventDefault();
+        // console.log('TEST')
 
-        // console.log('foto agunan menyeluruh'+fotoAgunanMenyeluruh)
-        //     var fotoBuktiPajak="";
-        // var fotoSuratAgunan="";
+        //         $('#fieldAgunan').validate({
+        //             errorElement: 'span',
+        //             errorPlacement: function (error, element) {
+        //                 error.addClass('invalid-feedback');
+        //                 element.closest('.form-group').append(error);
+        //             },
+        //             highlight: function (element, errorClass, validClass) {
+        //                 $(element).addClass('is-invalid');
+        //             },
+        //             unhighlight: function (element, errorClass, validClass) {
+        //                 $(element).removeClass('is-invalid');
+        //             },
+        //             rules: {
+        //                 jenisAgunan: {
+        //                     required: true
+        //                 },
 
-        // var fotoBuktiPajak = '';
-        // var fotoSuratAgunan = '';
+        //             },
+        //             messages: {
+        //                 jenisAgunan: {
+        //                     required: 'Isi Jenis Agunan anda'
+        //                 },
+
+        //             },
+        //             submitHandler: function(form) {
+        //                 console.log(form)
+        //             }
+
+        //         });
+
+        //         return false;
 
         let fieldAgunan = document.getElementById("fieldAgunan");
 
         if (fieldAgunan) {
-            if (!fieldAgunan.checkValidity()) {
+            // if (!fieldAgunan.valid()) {
+            if (!$("#fieldAgunan").valid()) {
                 fieldAgunan.classList.add("was-validated");
                 return false;
             }
         }
 
-        // console.log($('#jenisAgunan:checked').val());
-
-        // console.log()
-
-        // alert()
         var tempAgunan = {
             id_agunan: rowIdx + 1,
             clusterAssign: $("#clusterAssign").val(),
@@ -1147,7 +1125,6 @@ $(function () {
             fotoSuratAgunan: fotoSuratAgunan,
         };
 
-        // console.log(tempAgunan);
         listAgunan.push(tempAgunan);
         fotoAgunan.push(gambarAgunan);
         tempDataAgunan.push(dataAgunan);
@@ -1181,32 +1158,14 @@ $(function () {
         console.log(listAgunan);
     });
 
-    $("#seeAgunan").on("click", function () {
-        console.log("listAgunan " + JSON.stringify(listAgunan));
-        console.log("gambar agunan " + JSON.stringify(fotoAgunan));
-    });
-
     $("#tbody").on("click", ".remove", function () {
-        //  hapusAgunan();
-
-        // Getting all the rows next to the
-        // row containing the clicked button
         var child = $(this).closest("tr").nextAll();
-        // console.log('child' +JSON.stringifychild)
 
-        // Iterating across all the rows
-        // obtained to change the index
-        console.log("anak" + JSON.stringify(child));
         var didConfirm = confirm("Yakin untuk hapus agunan ? ");
         if (didConfirm == true) {
             child.each(function (index) {
-                console.log("index" + index);
-
                 // Getting <tr> id.
                 var id = $(this).attr("id");
-                console.log("si id" + id);
-
-                console.log("value id agunan" + $("#idAgunan" + id).val());
 
                 // Getting the <p> inside the .row-index class.
                 var idx = $(this).children(".row-index").children("p");
@@ -1214,7 +1173,6 @@ $(function () {
 
                 // Gets the row number from <tr> id.
                 var dig = parseInt(id.substring(1));
-                console.log("id agunan " + $("#idAgunan" + dig).val());
 
                 // Modifying row index.
                 idx.html(`Row ${dig - 1}`);
@@ -1235,8 +1193,6 @@ $(function () {
         } else {
             return false;
         }
-
-        // console.log('list agunan setelah dihapus '+JSON.stringify(listAgunan))
     });
 
     $("#addAgunanModal").on("hidden.bs.modal", function (e) {
@@ -1256,7 +1212,6 @@ $(function () {
     });
 
     $("#fotoKTP").on("change", function (event) {
-        // console.log('test 123')
         const image = document.querySelector("#fotoKTP");
 
         const imgPreview = document.querySelector(".img-preview-ktp");
@@ -1275,31 +1230,17 @@ $(function () {
         const oFReader = new FileReader();
 
         oFReader.readAsDataURL(image.files[0]);
-        // console.log(image.files[0])
 
         oFReader.onload = function (oFREvent) {
-            //   console.log(oFREvent.target.result);
             imgPreview.src = oFREvent.target.result;
             imageKTPReview = oFREvent.target.result;
             // imgPrevEndKTP.src = oFREvent.target.result;
         };
-
-        // console.log(imageKTPReview);
-
-        // $("#smartwizard").smartWizard('fixHeight');
-
-        // $('#smartwizard').smartWizard(
-        //     "overflow-y",
-        //     "auto"
-        // );
     });
     $("#fotoTandaTangan").on("change", function () {
-        // console.log('test 123')
         const image = document.querySelector("#fotoTandaTangan");
 
         const imgPreview = document.querySelector(".img-preview-signature");
-
-        // const imgPrevEndKTP = document.querySelector('revGambarKTP')
 
         imgPreview.style.display = "block";
         imgPreview.style.position = "relative";
@@ -1314,15 +1255,6 @@ $(function () {
             imgPreview.src = oFREvent.target.result;
             imageTandaTangan = oFREvent.target.result;
         };
-
-        // console.log(imageKTPReview);
-
-        // $("#smartwizard").smartWizard('fixHeight');
-
-        // $('#smartwizard').smartWizard(
-        //     "overflow-y",
-        //     "auto"
-        // );
     });
 
     // $("#keteranganAgunan").hide();
@@ -1343,8 +1275,9 @@ $(function () {
 
     $("#jlhAgunan").hide();
     $("#formAgunan").hide();
+    $("#formTanpaAgunan").hide();
 
-    $("#gunakanAgunan").on("change", function () {
+    $("#gunakanAgunanTemp").on("change", function () {
         var val = $(this).val();
 
         if (val == 1) {
@@ -1353,11 +1286,6 @@ $(function () {
             $("#totalAgunan").val(counter);
 
             $("#formAgunan").show();
-
-            // $("#keteranganAgunan>div>div>input, #keteranganAgunan>div>div>select").prop("disabled", false);
-            // $("#keteranganAgunan>div>div>input, #keteranganAgunan>div>div>select").prop("required", true);
-            // $("#keteranganAgunan").show();
-            // $("#jlhAgunan").show()
         } else {
             listAgunan = [];
             $("#formAgunan").hide();
@@ -1365,254 +1293,8 @@ $(function () {
             var counter = 0;
 
             $("#totalAgunan").val(counter);
-            // $("#keteranganAgunan>div>div>input, #keteranganAgunan>div>div>select").prop("disabled", true);
-            // $("#keteranganAgunan>div>div>input, #keteranganAgunan>div>div>select").prop("required", false);
-            // $("#keteranganAgunan>div").remove();
-            // $("#jlhAgunan").hide()
         }
     });
-
-    // $("#jumlahAgunan").on('change', function() {
-
-    //     // var menu = document.getElementsByTagName('div');
-    //     // var val = $(this).val()
-    //     var val = $(this).val()
-    //     console.log(typeof val)
-
-    //     var tempHtml = [];
-
-    //     for (let i = 0; i < val; i++) {
-    //         console.log('halo');
-    //         // console.log('<h1>Haolo ' + i + '</h1>')
-
-    //         // tempHtml.push(`<div><h1>Haolo ${i}</h1></div>`);
-
-    //         tempHtml.push(`<div class="row mt-3" >
-    //         <h3>Benda Agunan - </h3>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Jenis Agunan<span class="text-danger">*</span></label>
-    //                 <br />
-    //                 <input class="form-check-input" type="radio" name="jenisAgunan${i+1}"
-    //                 id="jenisAgunan${i+1}" required value="tanah">
-    //                         <label class="form-check-label" for="flexRadioDefault${i+1}">
-    //                             Tanah
-    //                         </label>
-    //                         <input class="form-check-input" type="radio" name="jenisAgunan${i+1}"
-    //                         id="jenisAgunan${i+1}" required value="rumah">
-    //                         <label class="form-check-label" for="flexRadioDefault${i+1}">
-    //                             Rumah
-    //                         </label>
-    //                         <input class="form-check-input" type="radio" name="jenisAgunan${i+1}"
-    //                         id="jenisAgunan${i+1}" required value="toko">
-    //                         <label class="form-check-label" for="flexRadioDefault${i+1}">
-    //                             Ruko
-    //                         </label>
-    //                         <input class="form-check-input" type="radio" name="jenisAgunan${i+1}"
-    //                         id="jenisAgunan${i+1}" required value="apartemen">
-    //                         <label class="form-check-label" for="flexRadioDefault${i+1}">
-    //                             Apartemen
-    //                         </label>
-
-    //                 <div class="row">
-    //                     <div class="col-sm-6">
-
-    //                     </div>
-    //                     <div class="col-sm-6">
-
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Jenis Dokumen Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <select class="form-control" name="jenisDokumenAgunan${i+1}" id="jenisDokumenAgunan${i+1}"
-    //                     placeholder="--Pilih Jenis Agunan--" required>
-    //                     <option selected hidden>---Pilih Jenis Dokumen---</option>
-    //                     <option value="SHM">SHM</option>
-    //                     <option value="SHGB">SHGB</option>
-    //                     <option value="AJB">AJB</option>
-    //                     <option value="GIRIK">GIRIK</option>
-    //                     <option value="PPJB">PPJB</option>
-    //                     <option value="BPKB">BPKB</option>
-    //                     <option value="SKCAMAT">SKCAMAT</option>
-    //                     <option value="Lainnya">Lainnya</option>
-
-    //                 </select>
-
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Alamat / Lokasi Bangunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="text" class="form-control" name="alamatAgunan${i+1}" id="alamatAgunan${i+1}"
-    //                     placeholder="Alamat / Lokasi Agunan" required>
-
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Luas Tanah (m2) <span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="text" class="form-control" name="luasTanahAgunan${i+1}" id="luasTanahAgunan${i+1}"
-    //                     placeholder="Luas Tanah (m2) " required>
-
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Perkiraan Nilai Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="text" class="form-control" name="perkiraanNilaiAgunan${i+1}" id="perkiraanNilaiAgunan${i+1}"
-    //                     placeholder="Perkiraan Nilai Agunan" required>
-
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Nomor Surat Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="text" class="form-control" name="nomorSuratAgunan${i+1}" id="nomorSuratAgunan${i+1}"
-    //                     placeholder="Nomor Surat Agunan" required>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Provinsi Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <select class="form-control" name="provinsiAgunan" id="provinsiAgunan${i+1}"
-    //                     placeholder="--Pilih Jenis Agunan--" required>
-    //                     <option selected hidden>---Pilih Provinsi---</option>
-    //                     <option value="dki jakarta">DKI JAKARTA</option>
-    //                     <option value="kepulauan riau">KEPULAUAN RIAU</option>
-    //                     <option value="sumatera utara">SUMATERA UTARA</option>
-
-    //                 </select>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Kabupaten Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <select class="form-control" name="kabupatenAgunan${i+1}" id="kabupatenAgunan${i+1}"
-    //                     placeholder="--Pilih Jenis Agunan--" required>
-    //                     <option hidden>---Pilih Kabupaten---</option>
-
-    //                 </select>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Kecamatan Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <select class="form-control" name="kecamatanAgunan${i+1}" id="kecamatanAgunan${i+1}"
-    //                     placeholder="--Pilih Jenis Agunan--" required>
-    //                     <option selected hidden>---Pilih Kecamatan---</option>
-
-    //                 </select>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Desa / Kelurahan Agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <select class="form-control" name="desakelAgunan${i+1}" id="desakelAgunan${i+1}"
-    //                     placeholder="--Pilih Jenis Agunan--" required>
-    //                     <option selected hidden>---Pilih Desa / Kelurahan---</option>
-
-    //                 </select>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Foto Tampak Depan Agunan Secara Jelas Menyeluruh<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="file" name="tampakDepanAgunan${i+1}" id="tampakDepanAgunan${i+1}" class="form-control"
-    //                         style="position:relative;" accept=".jpg, .jpeg, .png"
-    //                         required>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Foto Bukti Pembayaran PBB/ Pajak Agunan atau dokumen pelengkap lainnya<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="file" name="buktiBayarPbb${i+1}" id="buktiBayarPbb${i+1}" class="form-control"
-    //                         style="position:relative;" accept=".jpg, .jpeg, .png"
-    //                         required>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Foto Bagian Halaman yang menampilkan nomor surat, luas, dan nama pemilik agunan<span
-    //                         class="text-danger">*</span></label>
-    //                 <input type="file" name="bagianHalamanAgunan${i+1}" id="bagianHalamanAgunan${i+1}" class="form-control"
-    //                         style="position:relative;" accept=".jpg, .jpeg, .png"
-    //                         required>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Apakah Jaminan Merupakan Tempat Tinggal Anda?<span
-    //                         class="text-danger">*</span></label>
-    //                 <input class="form-check-input" type="radio" name="tempatTinggalAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Ya
-    //                 </label>
-    //                 <input class="form-check-input" type="radio" name="tempatTinggalAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Tidak
-    //                 </label>
-
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Apakah Jaminan Merupakan Tempat Usaha Anda?<span
-    //                         class="text-danger">*</span></label>
-    //                 <input class="form-check-input" type="radio" name="tempatUsahaAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Ya
-    //                 </label>
-    //                 <input class="form-check-input" type="radio" name="tempatUsahaAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Tidak
-    //                 </label>
-    //             </div>
-    //         </div>
-    //         <div class="col-md-4 my-2">
-    //             <div class="form-group">
-    //                 <label class="sr-only">Apakah Jaminan Sedang disewakan?<span
-    //                         class="text-danger">*</span></label>
-    //                         <br/>
-    //                 <input class="form-check-input" type="radio" name="disewakanAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Ya
-    //                 </label>
-    //                 <input class="form-check-input" type="radio" name="disewakanAgunan${i+1}"
-    //                     required>
-    //                 <label class="form-check-label" for="flexRadioDefault1">
-    //                     Tidak
-    //                 </label>
-    //             </div>
-    //         </div>
-    //     </div>`);
-
-    //     }
-
-    //     $('#keteranganAgunan').html(tempHtml);
-    //     // console.log(tempHtml);
-
-    // });
-
-    // console.log($('#nasabahBaruField > input'));
 
     $("#nama,#alamatDebitur,#namaIbu, #namaPemilikRekBS").on(
         "input",
@@ -1632,8 +1314,6 @@ $(function () {
             c--;
         }
 
-        //$(this).next("#lengthCharacter").remove();
-
         this.setSelectionRange(c, c);
     });
 
@@ -1651,24 +1331,24 @@ $(function () {
     });
 
     $("#jenisKeperluan").on("change", function () {
-        // console.log()
-
         $.ajax({
             type: "GET",
             dataType: "html",
-            url: "http://127.0.0.1:8000/api/load-produk-kredit",
+            url: urlMain + "api/load-produk-kredit",
             data: {
                 idJenis: $(this).val(),
             },
 
             success: function (msg) {
-                // console.log(msg)
                 $("select#jnsProdukPinjaman").html(msg);
                 loadFirstProduct();
             },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(
+                    xhr.status + "\n" + xhr.responseText + "\n" + thrownError
+                );
+            },
         });
-
-        // console.log($('#jnsProdukPinjaman').val())
     });
 
     $("#jnsProdukPinjaman").change(loadFirstProduct);
@@ -1683,8 +1363,6 @@ $(function () {
     }
 
     $("#jnsProdukPinjaman").on("change", function () {
-        // console.log($(this).val())
-
         var data = $(this).val().split("-");
 
         $("#persenBunga").val(data[1]);
@@ -1777,17 +1455,6 @@ $(function () {
 
         $("#jlhDimohon").val(counter + ".000.000");
 
-        // var jlhPenghasilan = Number(($('#jlhPenghasilan').val()).replace(/[^0-9]+/g, ""));
-        // var jlhDimohon = Number(($('#jlhDimohon').val()).replace(/[^0-9]+/g, ""));
-        // // var jlhDimohon = $('#jlhDimohon').val();
-
-        // console.log(jlhPenghasilan)
-        // console.log(jlhDimohon)
-
-        // if (jlhPenghasilan < jlhDimohon) {
-        //     console.log("Maaf, plafon anda melebihi penghasilan")
-        // }
-
         setValueAngsuran();
     });
 
@@ -1814,19 +1481,6 @@ $(function () {
     $("#pointsJangkaWaktu").on("input", function () {
         var counter = $(this).val();
         setValueAngsuran();
-
-        // $('#jlhDimohon').val(counter + ".000.000");
-
-        // var jlhPenghasilan = Number(($('#jlhPenghasilan').val()).replace(/[^0-9]+/g, ""));
-        // var jlhDimohon = Number(($('#jlhDimohon').val()).replace(/[^0-9]+/g, ""));
-        // // var jlhDimohon = $('#jlhDimohon').val();
-
-        // console.log(jlhPenghasilan)
-        // console.log(jlhDimohon)
-
-        // if (jlhPenghasilan < jlhDimohon) {
-        //     console.log("Maaf, plafon anda melebihi penghasilan")
-        // }
     });
 
     $("#plusJangkaWaktu").click(function () {
@@ -1837,25 +1491,6 @@ $(function () {
         $("#jlhJangkaWaktu").val(newValuePlus.toString());
 
         setValueAngsuran();
-
-        // var jlhPenghasilan = Number(($('#jlhPenghasilan').val()).replace(/[^0-9]+/g, ""));
-        // var jlhDimohon = Number(($('#jlhDimohon').val()).replace(/[^0-9]+/g, ""));
-        // var jangkaWaktu = Number(($('#jlhJangkaWaktu').val()).replace(/[^0-9]+/g, ""));
-        // var persenBungaPerTahun = Number($('#persenBunga').val()) / 100;
-        // // var persenBungaPerBulan = Number((persenBungaPerTahun / 12).toFixed(2));
-        // var persenBungaPerBulan = Number((persenBungaPerTahun / 12).toFixed(4));
-        // // var jlhDimohon = $('#jlhDimohon').val();
-
-        // // console.log('jlhPenghasilan ' + jlhPenghasilan)
-        // // console.log('jlhDimohon ' + jlhDimohon)
-        // // console.log('jangkaWaktu ' + jangkaWaktu)
-        // // console.log('persenBungaPerTahun ' + parseFloat(persenBungaPerTahun))
-        // // console.log('persenBungaPerBulan ' + persenBungaPerBulan)
-
-        // var angsuranPerBulan = Math.round(PMT(persenBungaPerBulan, jangkaWaktu, jlhDimohon) * -1);
-        // // console.log(angsuranPerBulan)
-
-        // $('#angsuranPerBulan').val(angsuranPerBulan)
     });
 
     $("#minusJangkaWaktu").click(function () {
@@ -1865,22 +1500,6 @@ $(function () {
 
         $("#jlhJangkaWaktu").val(newValueMinus.toString());
 
-        // var newValueMinus = parseInt($("#jlhPenghasilan").val()) - 1;
-        // if (newValueMinus < 1) return;
-
-        // $("#jlhPenghasilan").val(newValueMinus.toString() + ".000.000");
-
-        // var jlhPenghasilan = Number(($('#jlhPenghasilan').val()).replace(/[^0-9]+/g, ""));
-        // var jlhDimohon = Number(($('#jlhDimohon').val()).replace(/[^0-9]+/g, ""));
-        // var jangkaWaktu = Number(($('#jlhJangkaWaktu').val()).replace(/[^0-9]+/g, ""));
-        // var persenBungaPerTahun = Number($('#persenBunga').val()) / 100;
-        // // var persenBungaPerBulan = Number((persenBungaPerTahun / 12).toFixed(2));
-        // var persenBungaPerBulan = Number((persenBungaPerTahun / 12).toFixed(4));
-
-        // var angsuranPerBulan = Math.round(PMT(persenBungaPerBulan, jangkaWaktu, jlhDimohon) * -1);
-        // // console.log(angsuranPerBulan)
-
-        // $('#angsuranPerBulan').val(angsuranPerBulan)
         setValueAngsuran();
     });
 
@@ -1892,8 +1511,6 @@ $(function () {
     $("#punyaNorek").on("change", function () {
         var val = $(this).val();
 
-        // console.log(val)
-        // cek dia nasabah lama
         if (val == "1") {
             $("#noRekBS").prop("disabled", false);
             $("#namaPemilikRekBS").prop("disabled", false);
@@ -2101,7 +1718,7 @@ $(function () {
         },
     };
 
-    // $('#form-test').validate({
+    // $('#form-1').validate({
     // errorElement: 'span',
     // errorClass: 'form-text form-error text-danger-m2',
     // errorClass: 'is-invalid',
@@ -2276,6 +1893,33 @@ $(function () {
                 $("#btnFinish").prop("disabled", true);
             }
 
+            if (stepIndex == 3) {
+                console.log("lakukan tampilkan komponen agunan atau tidak");
+                var jlhDimohon = Number(
+                    $("#jlhDimohon")
+                        .val()
+                        .replace(/[^0-9]+/g, "")
+                );
+                console.log(jlhDimohon);
+
+                if (jlhDimohon <= 100000000) {
+                    console.log("tanpa agunan");
+
+                    $("#gunakanAgunan").val("0");
+
+                    $("#formAgunan").hide();
+                    $("#formTanpaAgunan").show();
+                    // $('#smartwizard').smartWizard("goToStep", 5, true);
+                } else if (jlhDimohon > 100000000) {
+                    console.log("gunakan agunan");
+
+                    $("#gunakanAgunan").val("1");
+
+                    $("#formAgunan").show();
+                    $("#formTanpaAgunan").hide();
+                }
+            }
+
             // Focus first name
             if (stepIndex == 1) {
                 setTimeout(() => {
@@ -2286,17 +1930,18 @@ $(function () {
     );
 
     $("#smartwizard").on("initialized", function (e) {
-        console.log("initialized");
+        // console.log("initialized");
+        // $('#smartwizard').smartWizard("goToStep", 1, true);
 
         // console.log('anukan');
 
         // $('#smartwizard').smartWizard("reset");
 
-        // // Reset form
-        // document.getElementById("form-1").reset();
-        // document.getElementById("form-2").reset();
-        // document.getElementById("form-3").reset();
-        // document.getElementById("form-4").reset();
+        // Reset form
+        document.getElementById("form-1").reset();
+        document.getElementById("form-2").reset();
+        document.getElementById("form-3").reset();
+        document.getElementById("form-4").reset();
     });
 
     $("#smartwizard").on("loaded", function (e) {
@@ -2340,82 +1985,6 @@ $(function () {
         // }
     });
 
-    // $('#smartwizard').on("leaveStep", function(e, anchorObject, stepIndex, stepNumber, stepDirection) {
-    //     var elmForm = $('#form-step-' + stepIndex);
-
-    //     // console.log(elmForm)
-
-    //     console.log('Navigated to stepIndex ' + stepIndex + ' moving in stepDirection ' + stepDirection);
-
-    //     // var anu = 5
-    //     // if (stepDirection == 'forward' && elmForm) {
-
-    //     //     console.log($('#form-test').validate())
-    //     //     console.log($('#form-test').valid())
-    //     //     if ($('#form-test').valid()) {
-    //     //         return true;
-    //     //     } else {
-    //     //         return false;
-    //     //     }
-    //     // }
-
-    //     // return checkForm($('#nama').val());
-    //     // console.log($('#form-test').valid());
-
-    //     // console.log(confirm("Do you want to leave the step " + stepNumber + "?"));
-    //     // console.log("stepNumber " + stepNumber)
-    //     // console.log("stepDirection " + stepDirection)
-
-    //     // var step = [{
-    //     //         'number': 0,
-    //     //         'url': 'step-1'
-    //     //     },
-    //     //     {
-    //     //         'number': 1,
-    //     //         'url': 'step-2'
-    //     //     },
-    //     //     {
-    //     //         'number': 2,
-    //     //         'url': 'step-3'
-    //     //     },
-    //     // ]
-    //     // if (stepNumber == 0) {
-    //     //     console.log('step-1')
-    //     // } else if (stepNumber == 1) {
-    //     //     console.log('step-2')
-
-    //     // }
-    //     // return false;
-    //     // var test =
-    //     // $.ajax({
-    //     //     type: "GET",
-    //     //     // dataType: "html",
-    //     //     url: "http://127.0.0.1:8000/api/step-1",
-    //     //     data: {
-    //     //         nama: $('#nama').val(),
-    //     //     },
-
-    //     //     success: function(msg) {
-    //     //         console.log(msg)
-
-    //     //         if (msg.rc == "00") {
-    //     //             console.log('berhasil')
-    //     //                 // return true;
-    //     //                 // return true;
-    //     //                 // $("#smartwizard").smartWizard("next");
-
-    //     //         } else {
-    //     //             console.log('gagal')
-    //     //         }
-    //     //         // return 'tidak';
-    //     //         // return false;
-
-    //     //     }
-
-    //     // });
-    //     // return true;
-
-    // })
     $("#email").on("input", function () {
         var val = $(this).val();
 
@@ -2494,6 +2063,166 @@ $(function () {
         //this.setSelectionRange(c, c);
     });
 
+    $("#form-1").validate({
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+        rules: {
+            nama: {
+                required: true,
+            },
+            noNIK: {
+                required: true,
+                minlength: 16,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            alamatDebitur: {
+                required: true,
+            },
+            notelp1: {
+                required: true,
+            },
+            jenisKelamin: {
+                required: true,
+            },
+            tgl_lahir: {
+                required: true,
+            },
+            fotoKTP: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+            fotoTandaTangan: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+        },
+        messages: {
+            nama: {
+                required: "Mohon Isi Nama Anda",
+            },
+            noNIK: {
+                required: "Mohon Isi NIK Anda",
+                minlength: "Minimal 16 Karakter",
+            },
+            email: {
+                required: "Mohon Isi Email Anda",
+                email: "Email Anda tidak sesuai format",
+            },
+            alamatDebitur: {
+                required: "Mohon masukkan Alamat anda",
+            },
+            notelp1: {
+                required: "Mohon masukkan No. Telepon anda",
+            },
+            jenisKelamin: {
+                required: "Mohon masukkan Jenis Kelamin anda",
+            },
+            tgl_lahir: {
+                required: "Mohon masukkan Tanggal Lahir anda",
+            },
+            fotoKTP: {
+                required: "Mohon masukkan foto anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload tidak sesuai",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+            fotoTandaTangan: {
+                required: "Mohon masukkan foto anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload tidak sesuai",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+        },
+    });
+
+    $("#form-3").validate({
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+        rules: {
+            jenisKeperluan: {
+                required: true,
+            },
+            jnsProdukPinjaman: {
+                required: true,
+            },
+            jnsUsaha: {
+                required: true,
+            },
+            fotoTempatUsaha: {
+                required: true,
+                extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                accept: "image/*",
+                maxsize: 5000000,
+            },
+        },
+        messages: {
+            jenisKeperluan: {
+                required: "Mohon Pilih Jenis Pengajuan",
+            },
+            jnsProdukPinjaman: {
+                required: "Mohon Plih Jenis Produk Pinjaman Anda",
+            },
+            jnsUsaha: {
+                required: "Mohon Plih Jenis Produk Pinjaman Anda",
+            },
+            fotoTempatUsaha: {
+                required: "Mohon masukkan foto anda",
+                extension: "Wajib dalam Bentuk Foto",
+                accept: "File yang anda upload tidak sesuai",
+                maxsize: "File tidak boleh melewati 5 MB",
+            },
+        },
+    });
+
+    console.log($("#fieldAgunan"));
+
+    $("#form-4").validate({
+        rules: {
+            nama: {
+                required: true,
+            },
+            noNIK: {
+                required: true,
+            },
+            nama: {
+                required: true,
+            },
+        },
+        messages: {
+            nama: {
+                required: "Mohon Isi Nama Anda",
+            },
+            noNIK: {
+                required: "Mohon Isi NIK Anda",
+            },
+        },
+    });
+
     $("#smartwizard").on(
         "leaveStep",
         function (e, anchorObject, currentStepIdx, nextStepIdx, stepDirection) {
@@ -2504,14 +2233,31 @@ $(function () {
                     "form-" + (currentStepIdx + 1)
                 );
 
+                console.log("form-" + (currentStepIdx + 1));
+
+                // alert( "Valid: " + form.valid() );
+
+                // if ($('#form-1').valid()) {
+                //     return true
+                // } else {
+                //     return false
+                // }
+
                 if (form) {
                     // if (!form.checkValidity()) {
-                    //     form.classList.add('was-validated');
-                    //     $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
-                    //     $("#smartwizard").smartWizard('fixHeight');
-                    //     // console.log(dataForm.get)
-                    //     return false;
-                    // }
+                    if (!$("#form-" + (currentStepIdx + 1)).valid()) {
+                        // alert("Error"+form.validationMessage)
+
+                        form.classList.add("was-validated");
+                        $("#smartwizard").smartWizard(
+                            "setState",
+                            [currentStepIdx],
+                            "error"
+                        );
+                        $("#smartwizard").smartWizard("fixHeight");
+                        // console.log(dataForm.get)
+                        return false;
+                    }
 
                     // console.log(listAgunan);
 
@@ -2522,14 +2268,6 @@ $(function () {
                     );
                 }
             }
-
-            // $('#smartwizard').data('smartWizard')._showStep(1);
-
-            // setTimeout(function() {
-            //     // $('#smartwizard').data('smartWizard')._showStep(0);
-
-            //     $("#smartwizard").data('smartWizard');
-            // }, 50);
         }
     );
 
@@ -2611,13 +2349,6 @@ $(function () {
         detailAgunanModal.hide();
     });
 
-    //   closeDetailAgunan
-    //   $("#addTandaTangan").click(function() {
-
-    //     modalTandaTangan.show();
-
-    // });
-
     //remove fields group
     $("#formAgunan").on("click", "a[id^='remove']", function () {
         $(this).parents("div.col-sm-12").remove();
@@ -2625,7 +2356,7 @@ $(function () {
         var counter = $("[id^='agunan']", $("#formAgunan")).length;
 
         // console.log('counter '+counter)
-        console.log("total agunan " + counter--);
+        // console.log("total agunan " + counter--);
 
         $("#totalAgunan").val(counter--);
 
@@ -2636,68 +2367,126 @@ $(function () {
 });
 
 function showReviewPengajuan() {
-    console.log(imageKTPReview);
-    console.log("foto tempat usaha" + imageFotoUsaha);
-    // const image = document.querySelector('#fotoKTP');
-
     const reviewFotoKTP = document.querySelector(".reviewGambarKTP");
 
     let panjangAgunan = listAgunan.length;
-    console.log("panjang agunan" + panjangAgunan);
+    // console.log("panjang agunan" + panjangAgunan);
     // var testAgunan =[];
 
     let htmlAgunan = [];
 
     for (var i = 0; i < panjangAgunan; i++) {
         // console.log('agunan' +listAgunan[i]['jenisDokumenAgunan'])
-
         htmlAgunan += `
-        <div class="col-sm-6">
-
-            <h3>Agunan - ${i + 1}</h3>
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Jenis Agunan</td>
-                        <td>:</td>
-                        <td>${listAgunan[i]["jenisAgunan"]}</td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Dokumen Agunan</td>
-                        <td>:</td>
-                        <td> ${listAgunan[i]["jenisDokumenAgunan"]}</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat Agunan</td>
-                        <td>:</td>
-                        <td>${listAgunan[i]["alamatAgunan"]}</td>
-                    </tr>
-                    <tr>
-                        <td>Foto Tampak Agunan Secara Jelas Menyeluruh</td>
-                        <td>:</td>
-                        <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
-                            listAgunan[i]["fotoAgunanMenyeluruh"]
-                        }" ></td>
-                    </tr>
-                    <tr>
-                        <td>Foto Bukti Pembayaran PBB/Pajak Agunan atau Dokumen Pelengkap lainnnya  </td>
-                        <td>:</td>
-                        <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
-                            listAgunan[i]["fotoBuktiPajak"]
-                        }" ></td>
-                    </tr>
-                    <tr>
-                        <td>Foto Bagian Halaman yang Menampilkan Nomor Surat, Luas dan Nama Pemilik Agunan</td>
-                        <td>:</td>
-                        <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
-                            listAgunan[i]["fotoSuratAgunan"]
-                        }" ></td>
-                    </tr>
+        <h5>Agunan </h5>
+       
+        <div class="row">
+            <div class="col-sm-9 col-12 mx-3">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading${i + 1}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${
+                            i + 1
+                        }" aria-expanded="true" aria-controls="collapse${
+            i + 1
+        }">
+                        Agunan - ${i + 1}
+                        </button>
+                    </h2>
+                    <div id="collapse${
+                        i + 1
+                    }" class="accordion-collapse collapse" aria-labelledby="heading${
+            i + 1
+        }" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Jenis Agunan</td>
+                                <td>:</td>
+                                <td>${listAgunan[i]["jenisAgunan"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Dokumen Agunan</td>
+                                <td>:</td>
+                                <td> ${listAgunan[i]["jenisDokumenAgunan"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat Agunan</td>
+                                <td>:</td>
+                                <td>${listAgunan[i]["alamatAgunan"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Luas Tanah Agunan</td>
+                                <td>:</td>
+                                <td>${listAgunan[i]["luasTanahAgunan"]} meter persegi</td>
+                            </tr>
+                            <tr>
+                                <td>Luas Bangunan Agunan</td>
+                                <td>:</td>
+                                <td>${listAgunan[i]["luasBangunanAgunan"]} meter persegi</td>
+                            </tr>
+                            <tr>
+                                <td>Perkiraan Nilai Agunan</td>
+                                <td>:</td>
+                                <td>Rp. ${listAgunan[i]["perkiraanNilaiAgunan"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Nomor Surat Agunan</td>
+                                <td>:</td>
+                                <td>${listAgunan[i]["nomorSuratAgunan"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Provinsi Agunan</td>
+                                <td>:</td>
+                                <td>${(listAgunan[i]["provinsiAgunan"]).split("-")[1] } </td>
+                            </tr>
+                            <tr>
+                                <td>Kabupaten / Kota Agunan</td>
+                                <td>:</td>  
+                                <td>${ (listAgunan[i]["kabupatenAgunan"]).split("-")[1] }</td>
+                            </tr>
+                            <tr>
+                                <td>Kecamatan Agunan</td>
+                                <td>:</td>
+                                <td>${(listAgunan[i]["kecamatanAgunan"]).split("-")[1] }</td>
+                            </tr>
+                            <tr>
+                                <td>Desa / Kelurahan Agunan</td>
+                                <td>:</td>
+                                <td>${(listAgunan[i]["kelurahanAgunan"]).split("-")[1]}</td>
+                            </tr>
+                           
+                            <tr>
+                                <td>Foto Tampak Agunan Secara Jelas Menyeluruh</td>
+                                <td>:</td>
+                                <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
+                                    listAgunan[i]["fotoAgunanMenyeluruh"]
+                                }" ></td>
+                            </tr>
+                            <tr>
+                                <td>Foto Bukti Pembayaran PBB/Pajak Agunan atau Dokumen Pelengkap lainnnya  </td>
+                                <td>:</td>
+                                <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
+                                    listAgunan[i]["fotoBuktiPajak"]
+                                }" ></td>
+                            </tr>
+                            <tr>
+                                <td>Foto Bagian Halaman yang Menampilkan Nomor Surat, Luas dan Nama Pemilik Agunan</td>
+                                <td>:</td>
+                                <td> <img class="reviewGambarKTP" style=" max-width: 100%;width:500px;" src="${
+                                    listAgunan[i]["fotoSuratAgunan"]
+                                }" ></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+                    </div>
                     
-                </tbody>
-            </table>
-
-          
+                </div>
+            </div>
         </div>
         `;
     }

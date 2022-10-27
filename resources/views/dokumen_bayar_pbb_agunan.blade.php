@@ -58,7 +58,7 @@
             <th>FOTO Bukti Bayar PBB Agunan</th>
             <th>
                 {{-- {{$id_req}} --}}
-                <img src="{{$foto_bukti_bayar_agunan }}" width="500" height="300">
+                <img src="{{$foto_bukti_bayar_agunan }}" style="max-width: 80%;width:500px;">
             </th>        
         </tr>
         {{-- <tr >

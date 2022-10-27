@@ -26,29 +26,12 @@ class GenerateDocumentController extends Controller
 
         for ($i=0; $i < count($pic_agunan) ; $i++) { 
 
-            // GenerateDocumentController::generateKepemilikanAgunan($pic_agunan[$i]->fotoAgunanMenyeluruh, $i+1,$id_req,$phone_number,$nik);
-            // GenerateDocumentController::generateTampilanAgunan($pic_agunan[$i]->fotoBuktiPajak, $i+1,$id_req,$phone_number,$nik);
-            // GenerateDocumentController::generateBuktiBayarPBB($pic_agunan[$i]->fotoSuratAgunan, $i+1,$id_req,$phone_number,$nik);
            GenerateDocumentController::generateKepemilikanAgunan($pic_agunan[$i]->fotoSuratAgunan, $i+1,$id_req,$phone_number,$nik);
            GenerateDocumentController::generateTampilanAgunan($pic_agunan[$i]->fotoAgunanMenyeluruh, $i+1,$id_req,$phone_number,$nik);
            GenerateDocumentController::generateBuktiBayarPBB($pic_agunan[$i]->fotoBuktiPajak, $i+1,$id_req,$phone_number,$nik);
            
             
         }
-        // $data=[
-        //      'checkDokKepemilikan' =>$checkDokKepemilikan,
-        //      'checkDokTampakAgunan' => $checkDokTampakAgunan,
-        //      'checkDokBuktiBayar' =>  $checkDokBuktiBayar 
-        // ];
-
-        // return $data;
-        
-        
-//count($pic_agunan);
-
-
-
-        
         
     }
     // generate dokumen foto kepemilikan agunan
@@ -56,8 +39,8 @@ class GenerateDocumentController extends Controller
 
         $datas=[
             'foto_kepemilikan_agunan'=>$foto,
-            'id_req'=>'0000000000'.$index,
-            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($phone_number."||".$nik)),
+            'id_req'=>$id_req.'_'.$index,
+            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($id_req."||".$nik)),
        
         ];
 
@@ -129,8 +112,8 @@ class GenerateDocumentController extends Controller
     public function generateTampilanAgunan($foto, $index,$id_req, $phone_number, $nik){
         $datas=[
             'foto_tampilan_agunan'=>$foto,
-            'id_req'=>'0000000000'.$index,
-            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($phone_number."||".$nik)),
+            'id_req'=>$id_req,
+            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($id_req."||".$nik)),
        
         ];
 
@@ -198,8 +181,8 @@ class GenerateDocumentController extends Controller
     public function generateBuktiBayarPBB($foto, $index,$id_req, $phone_number, $nik){
         $datas=[
             'foto_bukti_bayar_agunan'=>$foto,
-            'id_req'=>'0000000000'.$index,
-            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($phone_number."||".$nik)),
+            'id_req'=>$id_req,
+            "qrcode"=>base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($id_req."||".$nik)),
        
         ];
     
