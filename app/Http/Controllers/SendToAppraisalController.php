@@ -370,31 +370,33 @@ class SendToAppraisalController extends Controller
         ];
 
 
-            $headers = array("Content-Type:multipart/form-data"); 
+
+            // do sent document to appraisal
             
-            $ch = curl_init(); 
-            // set url 
-            curl_setopt($ch, CURLOPT_URL, "http://localhost/adminappraisal/apisavedoc");
-            curl_setopt($ch, CURLOPT_HEADER, false);
+            // $headers = array("Content-Type:multipart/form-data"); 
+            
+            // $ch = curl_init(); 
+            // // set url 
+            // curl_setopt($ch, CURLOPT_URL, "http://localhost/adminappraisal/apisavedoc");
+            // curl_setopt($ch, CURLOPT_HEADER, false);
     
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            // return the transfer as a string 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // // return the transfer as a string 
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
         
     
-            curl_setopt($ch, CURLOPT_POST,1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            // curl_setopt($ch, CURLOPT_POST,1);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
             
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,300);
-            curl_setopt($ch, CURLOPT_TIMEOUT,300);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,300);
+            // curl_setopt($ch, CURLOPT_TIMEOUT,300);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
-            // $output contains the output string 
-            $output = curl_exec($ch); 
-            // tutup curl 
-            curl_close($ch);    
+            // // $output contains the output string 
+            // $output = curl_exec($ch); 
+            // // tutup curl 
+            // curl_close($ch);    
             
-        return $output;
         
 
         
@@ -428,29 +430,31 @@ class SendToAppraisalController extends Controller
         ];
 
 
-        $headers = array("Content-Type:multipart/form-data"); 
+        // do sent document to appraisal
             
-        $ch = curl_init(); 
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "http://localhost/adminappraisal/apisavedoc");
-        curl_setopt($ch, CURLOPT_HEADER, false);
+        // $headers = array("Content-Type:multipart/form-data"); 
+            
+        // $ch = curl_init(); 
+        // // set url 
+        // curl_setopt($ch, CURLOPT_URL, "http://localhost/adminappraisal/apisavedoc");
+        // curl_setopt($ch, CURLOPT_HEADER, false);
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // // return the transfer as a string 
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
     
 
-        curl_setopt($ch, CURLOPT_POST,1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        // curl_setopt($ch, CURLOPT_POST,1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,300);
-        curl_setopt($ch, CURLOPT_TIMEOUT,300);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,300);
+        // curl_setopt($ch, CURLOPT_TIMEOUT,300);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
-        // $output contains the output string 
-        $output = curl_exec($ch); 
-        // tutup curl 
-        curl_close($ch);   
+        // // $output contains the output string 
+        // $output = curl_exec($ch); 
+        // // tutup curl 
+        // curl_close($ch);   
     }
 
 

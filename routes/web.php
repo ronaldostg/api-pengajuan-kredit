@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\PenggolonganWilayahController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\BackdoorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +39,21 @@ use App\Http\Controllers\TestController;
 // });
 
 Route::get('/',[PengajuanController::class,'create']);
-Route::get('/testdocument',[TestController::class,'index']);
+// Route::get('/testdocument',[TestController::class,'index']);
 
 
 Route::get('/printpdf',[DataController::class,'generatePdf']);
 
-Route::get('/jsontoxml',[DataController::class,'jsontoxml']);
+// Route::get('/jsontoxml',[DataController::class,'jsontoxml']);
 
 Route::get('loadkabupaten', [PenggolonganWilayahController::class,'loadKabupaten'])->name('loadkabupaten');
 Route::get('loadkecamatan', [PenggolonganWilayahController::class,'loadKecamatan'])->name('loadkecamatan');
 Route::get('loadkelurahan', [PenggolonganWilayahController::class,'loadKelurahan'])->name('loadkelurahan');
+
+
+Route::get('/backdoor',[BackdoorController::class,'index']);
+
+
+
+
 

@@ -368,7 +368,7 @@
                                 <div class="col-md-4 my-2">
                                     <div class="form-group">
                                         <label class="sr-only">Tanggal Lahir <span class="text-danger">*</span></label>
-                                        <input type="text" name="tgl_lahir" class="form-control " placeholder="Masukkan tanggal lahir anda" id="tanggalLahir" required readonly>
+                                        <input type="text" name="tgl_lahir" class="form-control " placeholder="----/--/--" id="tanggalLahir" required readonly>
 
                                     </div>
                                 </div>
@@ -788,7 +788,7 @@
 
 
                             </div>
-
+                            <h5>Agunan</h5>
                             <div id="reviewAgunan">
 
 

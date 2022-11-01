@@ -1,5 +1,6 @@
 // const { find } = require("lodash");
 const urlMain = "http://127.0.0.1:8000/";
+// const urlMain = "http://192.168.177.83:8000/";
 
 const myModal = new bootstrap.Modal(document.getElementById("addAgunanModal"));
 const detailAgunanModal = new bootstrap.Modal(
@@ -298,7 +299,7 @@ function onConfirm() {
                     Swal.fire({
                         icon: "error",
                         title: "Maaf...",
-                        text: "Jika menggunakan Agunan, Mohon masukkan data agunan anda",
+                        text: "plafon anda melebihi Rp.100.000.000 Mohon masukkan data agunan anda",
                     });
                     return false;
                 }
@@ -349,6 +350,7 @@ function onConfirm() {
                             success: function (res) {
                                 // lakukan cek nama dan NIK nya
                                 if (res.rc == "00") {
+                                    // console.log('kena nya di sini 1')
                                     $.ajax({
                                         url: urlMain + "api/inquery-nik-notelp",
                                         type: "POST",
@@ -361,7 +363,7 @@ function onConfirm() {
                                         },
         
                                         beforeSend: function () {
-                                            console.log("loading nik notelp");
+                                        //    console.log("loading nik notelp");
                                             swal.fire({
                                                 title: "Menunggu...",
                                                 text: "Data Anda sedang diproses",
@@ -372,7 +374,7 @@ function onConfirm() {
                                             });
                                         },
                                         success: function (response) {
-                                            console.log("response" + response);
+                                         //   console.log("response" + response);
                                             if (response.rc == "02") {
                                                 Swal.fire({
                                                     icon: "error",
@@ -439,6 +441,10 @@ function onConfirm() {
                                         },
                                     });
                                 } else {
+                                    // console.log('kena nya di sini 2')
+                                    // console.log(res.message)
+                                    // console.log(res.rc)
+                                    
                                     Swal.fire({
                                         icon: "error",
                                         title: "Maaf...",
@@ -617,10 +623,10 @@ function kirimkanOTP(formData) {
                                         // text:
                                     }).then((result) => {
                                         var noticeData = res.data_pengaju;
-                                        console.log(
-                                            "notice data" +
-                                                noticeData.nama_debitur
-                                        );
+                                        // console.log(
+                                        //     "notice data" +
+                                        //         noticeData.nama_debitur
+                                        // );
                                         if (result.isConfirmed) {
                                             // window.location('/');
                                             location.href = urlMain;
@@ -798,7 +804,7 @@ $(function () {
             },
 
             success: function (msg) {
-                console.log(msg);
+                // console.log(msg);
 
                 $("select#kabupatenAgunan").html(msg);
 
@@ -900,7 +906,7 @@ $(function () {
         };
     });
     $("#fotoSuratAgunan").on("change", function () {
-        console.log($(this));
+        // console.log($(this));
 
         var fieldFotoSuratAgunan = document.querySelector("#fotoSuratAgunan");
         const readFoto = new FileReader();
@@ -1129,9 +1135,9 @@ $(function () {
         fotoAgunan.push(gambarAgunan);
         tempDataAgunan.push(dataAgunan);
 
-        console.log(tempAgunan);
-        console.log(gambarAgunan);
-        console.log(dataAgunan);
+        // console.log(tempAgunan);
+        // console.log(gambarAgunan);
+        // console.log(dataAgunan);
 
         $("#tbody").append(`
             <tr id="R${++rowIdx}">
@@ -1155,7 +1161,7 @@ $(function () {
 
         myModal.hide();
 
-        console.log(listAgunan);
+        // console.log(listAgunan);
     });
 
     $("#tbody").on("click", ".remove", function () {
@@ -1221,8 +1227,8 @@ $(function () {
         var tmpPath = URL.createObjectURL(event.target.files[0]);
 
         urlIamgeFotoKTP = tmpPath;
-        console.log(image.files[0]);
-        console.log(urlIamgeFotoKTP);
+        // console.log(image.files[0]);
+        // console.log(urlIamgeFotoKTP);
 
         imgPreview.style.display = "block";
         imgPreview.style.position = "relative";
@@ -1251,7 +1257,7 @@ $(function () {
         // console.log(image.files[0])
 
         oFReader.onload = function (oFREvent) {
-            console.log(oFREvent.target.result);
+        //    console.log(oFREvent.target.result);
             imgPreview.src = oFREvent.target.result;
             imageTandaTangan = oFREvent.target.result;
         };
@@ -1340,6 +1346,7 @@ $(function () {
             },
 
             success: function (msg) {
+                // console.log(msg)
                 $("select#jnsProdukPinjaman").html(msg);
                 loadFirstProduct();
             },
@@ -1632,7 +1639,7 @@ $(function () {
                 // }
 
                 $(this).after(
-                    '<div class="text-white font-weight-bold alert-warning px-2 mt-1" id="checkFormat"> <label> Penulisan NPWP tidak tidak diawali angka 0  </label> </div>'
+                    '<div class="text-white font-weight-bold alert-warning px-2 mt-1" id="checkFormat"> <label> Penulisan NPWP tidak  diawali angka 0  </label> </div>'
                 );
 
                 // $(this).next("#checkFormat").remove()
@@ -1868,7 +1875,7 @@ $(function () {
     $("#smartwizard").on(
         "showStep",
         function (e, anchorObject, stepIndex, stepDirection, stepPosition) {
-            console.log("step index" + stepIndex);
+            // console.log("step index" + stepIndex);
 
             $("#prev-btn").removeClass("disabled").prop("disabled", false);
             $("#next-btn").removeClass("disabled").prop("disabled", false);
@@ -1894,16 +1901,16 @@ $(function () {
             }
 
             if (stepIndex == 3) {
-                console.log("lakukan tampilkan komponen agunan atau tidak");
+               // console.log("lakukan tampilkan komponen agunan atau tidak");
                 var jlhDimohon = Number(
                     $("#jlhDimohon")
                         .val()
                         .replace(/[^0-9]+/g, "")
                 );
-                console.log(jlhDimohon);
+                // console.log(jlhDimohon);
 
                 if (jlhDimohon <= 100000000) {
-                    console.log("tanpa agunan");
+                    // console.log("tanpa agunan");
 
                     $("#gunakanAgunan").val("0");
 
@@ -1911,7 +1918,7 @@ $(function () {
                     $("#formTanpaAgunan").show();
                     // $('#smartwizard').smartWizard("goToStep", 5, true);
                 } else if (jlhDimohon > 100000000) {
-                    console.log("gunakan agunan");
+                    // console.log("gunakan agunan");
 
                     $("#gunakanAgunan").val("1");
 
@@ -1945,7 +1952,7 @@ $(function () {
     });
 
     $("#smartwizard").on("loaded", function (e) {
-        console.log("loaded");
+        // console.log("loaded");
     });
 
     // Smart Wizard
@@ -2030,7 +2037,7 @@ $(function () {
                 // }
 
                 $(this).after(
-                    '<div class="text-white font-weight-bold alert-warning px-2 mt-1" id="checkFormat"> <label> Penulisan Nomor Rekening tidak tidak diawali angka 0  </label> </div>'
+                    '<div class="text-white font-weight-bold alert-warning px-2 mt-1" id="checkFormat"> <label> Penulisan Nomor Rekening tidak diawali angka 0  </label> </div>'
                 );
 
                 // $(this).next("#checkFormat").remove()
@@ -2199,7 +2206,7 @@ $(function () {
         },
     });
 
-    console.log($("#fieldAgunan"));
+    // console.log($("#fieldAgunan"));
 
     $("#form-4").validate({
         rules: {
@@ -2233,7 +2240,7 @@ $(function () {
                     "form-" + (currentStepIdx + 1)
                 );
 
-                console.log("form-" + (currentStepIdx + 1));
+                // console.log("form-" + (currentStepIdx + 1));
 
                 // alert( "Valid: " + form.valid() );
 
@@ -2378,7 +2385,7 @@ function showReviewPengajuan() {
     for (var i = 0; i < panjangAgunan; i++) {
         // console.log('agunan' +listAgunan[i]['jenisDokumenAgunan'])
         htmlAgunan += `
-        <h5>Agunan </h5>
+       
        
         <div class="row">
             <div class="col-sm-9 col-12 mx-3">
@@ -2635,7 +2642,7 @@ function showReviewPengajuan() {
                         <td> ${
                             $("#jnsProdukPinjaman").val() == null
                                 ? ""
-                                : $("#jnsProdukPinjaman").val()
+                                : $("#jnsProdukPinjaman").val().split("-")[2] +" - "+$("#jnsProdukPinjaman").val().split("-")[1] +" % "
                         } </td>
                     </tr>
                    
@@ -2681,10 +2688,10 @@ function showReviewPengajuan() {
 
     $("#reviewPengajuan").html(html);
 
-    if (listAgunan == []) {
-        $("#reviewAgunan").html("<h3>Tidak Menggunakan Agunan</h3>");
-    } else {
+    if ($('#gunakanAgunan').val()=='1') {
         $("#reviewAgunan").html(anu);
+    } else {
+        $("#reviewAgunan").html("<h5 class='p-2 font-weight-bold text-danger'>Tidak Menggunakan Agunan</h5>");
     }
 }
 

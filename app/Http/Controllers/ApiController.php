@@ -55,7 +55,7 @@ class ApiController extends Controller
 
         if (count($checkAuthreg) > 0) {
             $res['rc'] = '00';
-            $res['status'] = 'Nomor telepon sudah terdaftar';
+            $res['status'] = 'Nomor telepon anda sudah digunakan. Silahkan mengganti nomor telepon lain. ';
         } else {
             $res['rc'] = '01';
             $res['status'] = 'Nomor telepon belum pernah terdaftar';
@@ -118,8 +118,8 @@ class ApiController extends Controller
 
             $result =  json_decode($output);
 
-            return json_encode($result);
-            exit();
+            // return json_encode($result);
+            // exit();
 
       
 
@@ -336,11 +336,30 @@ class ApiController extends Controller
         
         $idJenis = $request->idJenis;
 
+        $res=[];
+        $query = '';
+        if ($idJenis == '1'){
+            $query = "SELECT * from cfg_produk where prodname LIKE '%INV%' and prodname NOT LIKE '%KMG%' AND prodname NOT LIKE '%PMG%' OR prodname LIKE '%INVERSTASI%' OR prodname LIKE '%SPRMIKRO%' and prodname NOT LIKE '%MDL KERJA%' or prodname like '%KPR%'
+            ";
+        }else if($idJenis == '2'){
+            $query = "SELECT * from cfg_produk where prodname LIKE '%MDL KERJA%' and prodname NOT LIKE '%KMG%' OR prodname LIKE '%MODAL KERJA%' AND prodname NOT LIKE '%PMG%' OR prodname LIKE '%KRD USAHA%'";
+            
+        }
+        // $res['data'] = DB::select($query);
 
-        $data = DB::connection('pgsql2')->select('select * from t_jenis_kredit where type_keperluan = '.$idJenis);
+        // $data['data']=$query;
+        
+        // return json_encode(DB::select($query));
 
+
+        // $data = DB::connection('pgsql2')->select('select * from t_jenis_kredit where type_keperluan = '.$idJenis);
+        $data = DB::select($query);
+
+        // foreach($data as $dt){
+        //     echo '<option value="0'.$dt->credit_id.'-'.$dt->persen.'-'.$dt->nama_kredit.'">'.$dt->nama_kredit.'</option>';
+        // }
         foreach($data as $dt){
-            echo '<option value="0'.$dt->credit_id.'-'.$dt->persen.'-'.$dt->nama_kredit.'">'.$dt->nama_kredit.'</option>';
+            echo '<option value="'.$dt->prodid.'-'.$dt->intrate.'-'.$dt->prodname.'">'.$dt->prodname.' - '.$dt->intrate.' % p.a'.'</option>';
         }
 
 
